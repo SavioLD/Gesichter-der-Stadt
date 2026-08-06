@@ -9,10 +9,13 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 |---|---|
 | `index.html` | Startseite: Projekt, Vorteile, Ziele, Betriebe, Anmeldung |
 | `anmeldung.html` | Verbindliche Anmeldung mit SEPA-Mandat und Unterschriften |
+| `ergaenzung.html` | Ergänzung zur Teilnahme für Betriebe, die bereits dabei sind |
 | `aktion-einreichen.html` | Formular für teilnehmende Betriebe |
 | `gesichter.css` | Gesamtes Styling beider Seiten |
 | `gesichter.js` | Navigation, Scroll-Reveal, Aktions-Formular |
-| `anmeldung.js` | Anmeldeformular: Unterschriftenfelder, IBAN-Prüfung, Versand |
+| `anmeldung.js` | Anmeldeformular: IBAN-Prüfung, Versand |
+| `ergaenzung.js` | Ergänzungsformular: Prüfung und Versand |
+| `signature.js` | Unterschriftenfeld, von beiden Formularen genutzt |
 | `posts/` | 43 Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
@@ -77,6 +80,13 @@ Zwei Zahlen sind geregelt: **15** aktive Betriebe für die Fortführung,
 **20** als Schwelle für die Frühwarnung. Beide stehen in
 `anmeldung.html` im Klartext – bei Änderung an sämtlichen Stellen
 mitziehen (Seitenspalte und Ziffern 4, 5).
+
+`ergaenzung.html` holt für die Bestandsteilnehmer nach, was in deren
+Anmeldung fehlte. Sie ist ausdrücklich freiwillig und ändert Beitrag
+und Leistung nicht – ohne Zustimmung bleibt es beim Bisherigen. Die
+Kennung der bestätigten Fassung steckt in `ergaenzung.js` als
+`FASSUNG`; bei inhaltlichen Änderungen hochzählen, damit
+nachvollziehbar bleibt, wem welcher Text vorlag.
 
 Ziffer 7 grenzt den Geltungsbereich ab: Die Bedingungen gelten für
 Anmeldungen über dieses Formular. Die 44 Betriebe, die vorher über
