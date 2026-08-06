@@ -403,6 +403,37 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
   font-size:.85rem;color:var(--ink-2);margin-top:.4em;
 }
 
+/* ----------------------------------------------------------------- Team --- */
+
+.about{
+  position:relative;z-index:2;
+  background:var(--paper);
+  color:var(--ink);
+  padding:clamp(28px,5vw,60px);
+  max-width:920px;
+}
+/* die Karte ist hell – Weiß von .band--orange h2 zuruecknehmen */
+.about h2{color:var(--ink);margin:.28em 0 .6em}
+.about p{margin:0 0 1em;color:var(--ink-2);font-size:clamp(1rem,2vw,1.1rem);line-height:1.62;max-width:62ch}
+.about p strong{color:var(--ink)}
+/* auf der hellen Karte greift der orange Marker, nicht der weiße der Orangefläche */
+.about .hl{background:linear-gradient(transparent 60%,rgba(213,120,42,.3) 60%)}
+
+.trust{
+  list-style:none;margin:clamp(24px,3.5vw,34px) 0 0;padding:clamp(22px,3vw,30px) 0 0;
+  display:grid;gap:clamp(16px,2.4vw,26px);
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));
+  border-top:1px solid var(--line);
+}
+.trust b{
+  display:flex;align-items:center;gap:.55em;
+  font-family:var(--font-display);font-weight:700;font-size:1.05rem;line-height:1.25;
+}
+.trust b::before{content:"";width:.45em;height:.45em;border-radius:50%;background:var(--orange);flex:none}
+.trust span{display:block;margin-top:.4em;font-size:.93rem;line-height:1.5;color:var(--ink-2)}
+
+.about__cta{display:flex;flex-wrap:wrap;gap:13px;margin-top:clamp(24px,3.5vw,34px)}
+
 /* ----------------------------------------------------------------- CTA --- */
 
 .cta{background:var(--cream);padding:clamp(56px,9vw,110px) 0}
