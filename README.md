@@ -64,9 +64,11 @@ ist nicht nötig. Den Aufbau des Bodys dokumentiert der Kopf von
 Die Teilnahmebedingungen stehen aufklappbar direkt über der
 verbindlichen Unterschrift.
 
-Alle Teilnahmen laufen in einem **gemeinsamen Projektjahr** von zwölf
-Monaten und verlängern sich zusammen. Wer später beitritt, zahlt
-anteilig bis zum Ende des laufenden Projektjahres. Dadurch gibt es
+Alle Teilnahmen laufen in einem **gemeinsamen Projektjahr vom
+28. Juli bis zum 27. Juli** und verlängern sich zusammen zum 28. Juli
+(Kündigung bis 27. April). Wer später beitritt, zahlt anteilig bis zum
+27. Juli. Die Daten stehen in `anmeldung.html` in Ziffer 2 und 3, in
+der Seitenspalte und beim Hinweis zur Zahlungsweise. Dadurch gibt es
 einen Stichtag im Jahr statt vieler Einzeltermine – und niemand zahlt
 im Voraus für einen Zeitraum, in dem das Projekt schon ausgelaufen
 sein kann.
