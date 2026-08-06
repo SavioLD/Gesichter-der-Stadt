@@ -414,6 +414,14 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
 }
 /* die Karte ist hell – Weiß von .band--orange h2 zuruecknehmen */
 .about h2{color:var(--ink);margin:.28em 0 .6em}
+
+.about__logo{
+  display:block;width:max-content;max-width:100%;
+  margin:clamp(16px,2.4vw,22px) 0 clamp(4px,1vw,10px);
+  transition:opacity .18s ease;
+}
+.about__logo img{width:auto;height:clamp(60px,8vw,92px)}
+.about__logo:hover{opacity:.75}
 .about p{margin:0 0 1em;color:var(--ink-2);font-size:clamp(1rem,2vw,1.1rem);line-height:1.62;max-width:62ch}
 .about p strong{color:var(--ink)}
 /* auf der hellen Karte greift der orange Marker, nicht der weiße der Orangefläche */
