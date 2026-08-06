@@ -32,7 +32,7 @@
      damit später nachvollziehbar bleibt, wem welcher Text vorlag. */
   var FASSUNG = "2026-08-ergaenzung-1";
 
-  var pad = window.GdsSignaturePad($(".sig"));
+  var pad = window.GdsSignaturePad($(".sig", form));
 
   var emailOk = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); };
 

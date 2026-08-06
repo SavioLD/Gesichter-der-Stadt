@@ -38,7 +38,7 @@
   var SignaturePad = window.GdsSignaturePad;   // aus signature.js
 
   var pads = {};
-  $$(".sig").forEach(function (box) { pads[box.getAttribute("data-sig")] = SignaturePad(box); });
+  $$(".sig", form).forEach(function (box) { pads[box.getAttribute("data-sig")] = SignaturePad(box); });
 
   /* ------------------------------------------------------ Prüfungen --- */
 
@@ -85,6 +85,53 @@
   });
   var privacy = $("#an_privacy");
   privacy.addEventListener("change", function () { if (privacy.checked) showErr("an_privacy", false); });
+
+  /* ---------------------------------------------- Beitrag anzeigen ---
+     Rechnet aus Größe und Zahlungsweise den Beitrag für ein volles
+     Projektjahr aus. Die jährliche Zahlung ist um 5 % rabattiert.
+  --------------------------------------------------------------------- */
+
+  var euro = function (n) {
+    return n.toLocaleString("de-DE", { style: "currency", currency: "EUR" });
+  };
+
+  var priceBox = $("#an_price");
+
+  function zeigeBeitrag() {
+    var g = $("input:checked", $("#an_sizeGroup"));
+    var z = $("input:checked", $("#an_payGroup"));
+    if (!g || !z) { priceBox.hidden = true; return; }
+
+    var monat = parseFloat(g.getAttribute("data-monat"));
+    var raten = parseInt(z.getAttribute("data-raten"), 10);
+    var rabatt = parseFloat(z.getAttribute("data-rabatt")) / 100;
+
+    if (!raten) {                       // individuelle Lösung
+      priceBox.innerHTML = "Den Beitrag stimmen wir persönlich mit Ihnen ab.";
+      priceBox.hidden = false;
+      return;
+    }
+
+    var voll = monat * 12;
+    var zuZahlen = voll * (1 - rabatt);
+
+    if (rabatt) {
+      priceBox.innerHTML =
+        "<strong>" + euro(zuZahlen) + "</strong> für ein volles Projektjahr statt " +
+        "<s>" + euro(voll) + "</s> – Sie sparen " + euro(voll - zuZahlen) + ".";
+    } else {
+      priceBox.innerHTML =
+        "<strong>" + euro(zuZahlen) + "</strong> für ein volles Projektjahr, zahlbar in " +
+        raten + " Raten zu je " + euro(zuZahlen / raten) +
+        ". <em>Bei jährlicher Zahlung sparen Sie " + euro(voll * 0.05) + ".</em>";
+    }
+    priceBox.hidden = false;
+  }
+
+  $$(".opts input[type=radio]", form).forEach(function (r) {
+    r.addEventListener("change", zeigeBeitrag);
+  });
+  zeigeBeitrag();
 
   /* IBAN beim Verlassen des Feldes in Vierergruppen setzen */
   var ibanEl = $("#an_iban");

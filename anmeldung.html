@@ -192,7 +192,7 @@
 
               <div class="opts" id="an_sizeGroup" role="radiogroup" aria-label="Unternehmensgröße">
                 <label class="opt">
-                  <input type="radio" name="groesse" value="A – 1-4 Mitarbeiter (45,00 € mntl.)" />
+                  <input type="radio" name="groesse" value="A – 1-4 Mitarbeiter (45,00 € mntl.)" data-monat="45" />
                   <span class="opt__body">
                     <span class="opt__key">A</span>
                     <span class="opt__label">1–4 Mitarbeiter</span>
@@ -200,7 +200,7 @@
                   </span>
                 </label>
                 <label class="opt">
-                  <input type="radio" name="groesse" value="B – 5-15 Mitarbeiter (70,00 € mntl.)" />
+                  <input type="radio" name="groesse" value="B – 5-15 Mitarbeiter (70,00 € mntl.)" data-monat="70" />
                   <span class="opt__body">
                     <span class="opt__key">B</span>
                     <span class="opt__label">5–15 Mitarbeiter</span>
@@ -208,7 +208,7 @@
                   </span>
                 </label>
                 <label class="opt">
-                  <input type="radio" name="groesse" value="C – 15+ Mitarbeiter (95,00 € mntl.)" />
+                  <input type="radio" name="groesse" value="C – 15+ Mitarbeiter (95,00 € mntl.)" data-monat="95" />
                   <span class="opt__body">
                     <span class="opt__key">C</span>
                     <span class="opt__label">15+ Mitarbeiter</span>
@@ -225,17 +225,18 @@
 
               <div class="opts opts--plain" id="an_payGroup" role="radiogroup" aria-label="Zahlungsweise">
                 <label class="opt">
-                  <input type="radio" name="zahlungsweise" value="Jährlich" />
+                  <input type="radio" name="zahlungsweise" value="Jährlich (5 % Rabatt)" data-rabatt="5" data-raten="1" />
                   <span class="opt__body">
-                    <span class="opt__label">Jährlich <span class="opt__tag">empfohlen</span></span>
+                    <span class="opt__label">Jährlich <span class="opt__tag">5 % Rabatt</span></span>
+                    <span class="opt__note">empfohlen</span>
                   </span>
                 </label>
                 <label class="opt">
-                  <input type="radio" name="zahlungsweise" value="Halbjährlich" />
+                  <input type="radio" name="zahlungsweise" value="Halbjährlich" data-rabatt="0" data-raten="2" />
                   <span class="opt__body"><span class="opt__label">Halbjährlich</span></span>
                 </label>
                 <label class="opt">
-                  <input type="radio" name="zahlungsweise" value="Individuelle Lösung" />
+                  <input type="radio" name="zahlungsweise" value="Individuelle Lösung" data-rabatt="0" data-raten="0" />
                   <span class="opt__body">
                     <span class="opt__label">Individuelle Lösung</span>
                     <span class="opt__note">Rücksprache erforderlich</span>
@@ -243,6 +244,7 @@
                 </label>
               </div>
               <p class="err-msg" data-for="an_payGroup">Bitte eine Zahlungsweise wählen.</p>
+              <p class="pricebox" id="an_price" hidden role="status"></p>
               <p class="fset__hint">Ihr erster Beitrag wird <strong>anteilig bis zum 27. Juli</strong>
                 berechnet, dem Ende des laufenden Projektjahres – den genauen Betrag nennen wir Ihnen in der
                 Bestätigung.</p>

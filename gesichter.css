@@ -596,6 +596,18 @@ select.input{appearance:none;cursor:pointer;
 .opt__note{margin-left:auto;font-family:var(--font-text);font-size:.86rem;color:var(--ink-2);text-align:right}
 .opts.err .opt__body{border-color:#c0392b}
 
+/* Beitragsanzeige im Anmeldeformular */
+.pricebox{
+  margin:0;
+  background:var(--cream);border-left:3px solid var(--orange);
+  padding:13px 16px;
+  font-size:.96rem;line-height:1.55;
+  font-variant-numeric:tabular-nums;
+}
+.pricebox strong{font-family:var(--font-display);font-size:1.15rem}
+.pricebox s{color:var(--ink-2)}
+.pricebox em{display:block;margin-top:.35em;font-style:normal;font-size:.88rem;color:var(--ink-2)}
+
 /* Rechtstexte im Formular */
 .legal{
   margin:0;padding:clamp(15px,2.2vw,20px);
