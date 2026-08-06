@@ -16,6 +16,8 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | `anmeldung.js` | Anmeldeformular: IBAN-Prüfung, Versand |
 | `ergaenzung.js` | Ergänzungsformular: Prüfung und Versand |
 | `signature.js` | Unterschriftenfeld, von beiden Formularen genutzt |
+| `datenschutz.html` | Datenschutzerklärung |
+| `nutzungsbedingungen.html` | AGB für die Teilnahme |
 | `posts/` | 43 Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
@@ -68,10 +70,14 @@ Die Teilnahmebedingungen stehen aufklappbar direkt über der
 verbindlichen Unterschrift.
 
 Alle Teilnahmen laufen in einem **gemeinsamen Projektjahr vom
-28. Juli bis zum 27. Juli** und verlängern sich zusammen zum 28. Juli
-(Kündigung bis 27. April). Wer später beitritt, zahlt anteilig bis zum
-27. Juli. Die Daten stehen in `anmeldung.html` in Ziffer 2 und 3, in
-der Seitenspalte und beim Hinweis zur Zahlungsweise. Dadurch gibt es
+28. Juli bis zum 27. Juli**. Danach endet die Teilnahme automatisch –
+keine stillschweigende Verlängerung, entsprechend § 9 der
+Nutzungsbedingungen. Wer später beitritt, zahlt anteilig bis zum
+27. Juli.
+
+Diese Regeln stehen an drei Stellen und müssen zusammen gepflegt
+werden: `nutzungsbedingungen.html` § 9, `anmeldung.html` Ziffern 2–5
+und `ergaenzung.html` Ziffern 2–4. Dadurch gibt es
 einen Stichtag im Jahr statt vieler Einzeltermine – und niemand zahlt
 im Voraus für einen Zeitraum, in dem das Projekt schon ausgelaufen
 sein kann.
@@ -121,9 +127,6 @@ python3 -m http.server 8000
   auskommentiert – Werte eintragen und einkommentieren.
 - **Handelsregisternummer**: gehört ins Impressum, sobald sie vorliegt.
 
-- **Rechtstexte**: `impressum.html` und `datenschutz.html` sind verlinkt,
-  liegen aber noch nicht im Repo. Beide anlegen, sonst laufen die
-  Footer-Links ins Leere.
 - **Teilnehmerzahl**: Die „43" in `index.html` ist fest hinterlegt und
   muss bei neuen Betrieben mitgezogen werden – an zwei Stellen: im
   Zähler unter „Vorteile" und im Text über dem Raster.

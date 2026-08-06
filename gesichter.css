@@ -688,6 +688,52 @@ select.input{appearance:none;cursor:pointer;
 /* Honigtopf gegen Bots – für Menschen unsichtbar */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 
+/* ------------------------------------------------------ Rechtstexte --- */
+
+.doc{
+  position:relative;
+  background:var(--cream-lt);
+  margin-top:calc(var(--arc) * -1);
+  padding:calc(var(--arc) + clamp(30px,5vw,56px)) 0 clamp(56px,9vw,110px);
+}
+.doc__grid{display:grid;gap:clamp(28px,4vw,56px);grid-template-columns:1fr;align-items:start}
+@media (min-width:960px){.doc__grid{grid-template-columns:minmax(0,15em) minmax(0,1fr)}}
+
+.doc__toc{position:sticky;top:90px}
+@media (max-width:959px){.doc__toc{position:static}}
+.doc__toc ol{list-style:none;margin:14px 0 0;padding:0;counter-reset:toc;display:grid;gap:7px}
+.doc__toc li{counter-increment:toc}
+.doc__toc a{
+  display:flex;gap:.6em;text-decoration:none;
+  font-size:.9rem;line-height:1.35;color:var(--ink-2);
+  padding:3px 0;
+}
+.doc__toc a::before{content:counter(toc) ".";color:var(--orange);font-weight:600;flex:none}
+.doc__toc a:hover{color:var(--orange-dark)}
+
+.doc__body{max-width:68ch}
+.doc__body h2{
+  font-size:clamp(1.35rem,3vw,1.75rem);
+  margin:2em 0 .5em;padding-top:1em;
+  border-top:1px solid var(--line);
+  scroll-margin-top:90px;
+}
+.doc__body h2:first-child{margin-top:0;padding-top:0;border-top:0}
+.doc__body h3{font-size:1.05rem;margin:1.6em 0 .4em}
+.doc__body p{margin:0 0 1em;line-height:1.7}
+.doc__body ul{margin:0 0 1em;padding-left:1.2em;line-height:1.7}
+.doc__body li{margin-bottom:.35em}
+.doc__body a{color:var(--orange-dark)}
+.doc__address{
+  font-style:normal;line-height:1.8;
+  background:var(--paper);border-left:3px solid var(--orange);
+  padding:clamp(15px,2.2vw,20px);margin:0 0 1.2em;
+}
+.doc__stand{
+  margin-top:2.4em;padding-top:1.2em;border-top:1px solid var(--line);
+  font-size:.9rem;color:var(--ink-2);
+}
+
 /* -------------------------------------------------------------- Footer --- */
 
 .foot{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(40px,6vw,70px) 0 0}
