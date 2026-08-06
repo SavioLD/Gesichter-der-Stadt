@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Betrieb anmelden – Gesichter der Stadt</title>
+<meta name="description" content="Verbindliche Anmeldung zum Projekt „Gesichter der Stadt" – der gemeinsamen Social-Media-Initiative zur Stärkung der Rottweiler Innenstadt." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="gesichter.css" />
+<script>if(!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.classList.add("anim");</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="top">
+  <div class="shell top__in">
+    <a class="top__brand" href="index.html">Gesichter der Stadt</a>
+    <nav class="top__nav" aria-label="Hauptnavigation">
+      <a href="index.html#projekt">Projekt</a>
+      <a href="index.html#vorteile">Vorteile</a>
+      <a href="index.html#betriebe">Betriebe</a>
+      <a href="index.html#team">Team</a>
+      <a href="aktion-einreichen.html">Aktion einreichen</a>
+      <a href="anmeldung.html" class="tab-cta" aria-current="page">Jetzt anmelden</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="top__mobile" id="mobileNav" aria-label="Navigation mobil">
+    <a href="index.html#projekt">Projekt</a>
+    <a href="index.html#vorteile">Vorteile</a>
+    <a href="index.html#ziele">Ziele</a>
+    <a href="index.html#betriebe">Betriebe</a>
+    <a href="index.html#team">Team</a>
+    <a href="aktion-einreichen.html">Aktion einreichen</a>
+    <a href="anmeldung.html" class="tab-cta" aria-current="page">Jetzt anmelden</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ========================================================= SEITENKOPF -->
+  <section class="phead">
+    <span class="dots" aria-hidden="true"></span>
+    <div class="shell phead__in rv">
+      <p class="eyebrow eyebrow--dot eyebrow--light">Verbindliche Anmeldung</p>
+      <h1>Anmeldung <span class="it">Rottweil</span></h1>
+      <p class="lede lede--light">Werden Sie Teil von „Gesichter der Stadt" – der gemeinsamen
+        Social-Media-Initiative zur Stärkung der Rottweiler Innenstadt.</p>
+    </div>
+  </section>
+
+  <!-- =========================================================== FORMULAR -->
+  <section class="formwrap arc-top">
+    <div class="shell formgrid">
+
+      <!-- ------------------------------------------------ Bedingungen -->
+      <aside class="formside rv">
+        <p class="eyebrow">Worum es geht</p>
+        <h2 class="caps">Gemeinsam <span class="hl">sichtbar</span></h2>
+
+        <p class="formside__lead">Mit Ihrer Anmeldung nehmen Sie am Projekt „Gesichter der Stadt" teil.
+          Wir übernehmen Konzeption, Erstellung und Veröffentlichung von Beiträgen und Videos.</p>
+        <p class="formside__lead">Sie profitieren von professioneller Sichtbarkeit, sparen Zeit und Kosten
+          und werden fair und rotierend präsentiert. Ziel ist es, Rottweil wieder als starke Marke zu
+          positionieren – damit Einheimische wie Touristen unsere Innenstadt wieder gerne besuchen.</p>
+
+        <div class="callout">
+          <h3>Kein Risiko bis zum Start</h3>
+          <p>Die Teilnahme wird erst wirksam, wenn mindestens <strong>45 verbindliche Anmeldungen</strong>
+            vorliegen. Wird diese Mindestteilnehmerzahl nicht erreicht, kommt kein Vertragsverhältnis
+            zustande.</p>
+          <p>In diesem Fall werden sämtliche personenbezogenen Daten ausschließlich zur Abwicklung der
+            Anmeldung verwendet und anschließend datenschutzkonform gelöscht. Die Information über das
+            Zustandekommen oder Nichtzustandekommen erfolgt per E-Mail.</p>
+          <p><strong>Bis zum Zustandekommen des Projekts entstehen keinerlei Kosten.</strong></p>
+        </div>
+
+        <p class="formside__claim">Sei Teil von Rottweils großer Innenstadt-Initiative – gemeinsam sichtbar,
+          gemeinsam stark.</p>
+      </aside>
+
+      <!-- --------------------------------------------------- Formular -->
+      <div class="formcard rv">
+        <div class="formcard__head">
+          <h3>Ihre Anmeldung</h3>
+          <p>Felder mit <span class="req">*</span> sind Pflichtangaben.</p>
+        </div>
+
+        <!--
+          data-endpoint: Ziel der Übermittlung. Solange es leer ist, bleibt das
+          Absenden gesperrt – Bankdaten und Unterschriften verlassen den Browser
+          nicht. Sobald die SEPA-Lösung feststeht, hier die URL eintragen; das
+          Formular sendet dann ein JSON per POST (Aufbau siehe anmeldung.js).
+        -->
+        <form id="anmeldungForm" data-endpoint="" novalidate>
+
+          <div class="fields">
+
+            <!-- ------------------------------------------ Kontaktdaten -->
+            <fieldset class="fset">
+              <legend>Ihre Kontaktdaten</legend>
+
+              <div class="field">
+                <label for="an_company">Firmenname <span class="req">*</span></label>
+                <input class="input" id="an_company" name="firmenname" autocomplete="organization" />
+                <p class="err-msg" data-for="an_company">Bitte den Firmennamen angeben.</p>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="an_email">E-Mail <span class="req">*</span></label>
+                  <input class="input" id="an_email" name="email" type="email" autocomplete="email" placeholder="name@betrieb.de" />
+                  <p class="err-msg" data-for="an_email">Bitte eine gültige E-Mail-Adresse angeben.</p>
+                </div>
+                <div class="field">
+                  <label for="an_phone">Telefonnummer <span class="req">*</span></label>
+                  <input class="input" id="an_phone" name="telefon" type="tel" autocomplete="tel" />
+                  <p class="err-msg" data-for="an_phone">Bitte eine Telefonnummer angeben.</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- --------------------------------------- Ansprechpartner -->
+            <fieldset class="fset">
+              <legend>Ansprechpartner</legend>
+
+              <div class="field field--narrow">
+                <label for="an_salutation">Anrede <span class="req">*</span></label>
+                <select class="input" id="an_salutation" name="anrede">
+                  <option value="">Bitte wählen</option>
+                  <option value="Frau">Frau</option>
+                  <option value="Herr">Herr</option>
+                </select>
+                <p class="err-msg" data-for="an_salutation">Bitte eine Anrede wählen.</p>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="an_first">Vorname <span class="req">*</span></label>
+                  <input class="input" id="an_first" name="vorname" autocomplete="given-name" />
+                  <p class="err-msg" data-for="an_first">Bitte den Vornamen angeben.</p>
+                </div>
+                <div class="field">
+                  <label for="an_last">Nachname <span class="req">*</span></label>
+                  <input class="input" id="an_last" name="nachname" autocomplete="family-name" />
+                  <p class="err-msg" data-for="an_last">Bitte den Nachnamen angeben.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="an_street">Adresse <span class="req">*</span></label>
+                <input class="input" id="an_street" name="adresse" autocomplete="street-address" />
+                <p class="err-msg" data-for="an_street">Bitte die Adresse angeben.</p>
+              </div>
+
+              <div class="grid-2 grid-2--plz">
+                <div class="field">
+                  <label for="an_zip">Postleitzahl <span class="req">*</span></label>
+                  <input class="input" id="an_zip" name="plz" inputmode="numeric" autocomplete="postal-code" />
+                  <p class="err-msg" data-for="an_zip">Bitte die Postleitzahl angeben.</p>
+                </div>
+                <div class="field">
+                  <label for="an_city">Stadt <span class="req">*</span></label>
+                  <input class="input" id="an_city" name="stadt" autocomplete="address-level2" />
+                  <p class="err-msg" data-for="an_city">Bitte die Stadt angeben.</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ------------------------------------ Unternehmensgröße -->
+            <fieldset class="fset">
+              <legend>Unternehmensgröße <span class="req">*</span></legend>
+              <p class="fset__hint">Diese Angabe bestimmt Ihre monatliche Rate.</p>
+
+              <div class="opts" id="an_sizeGroup" role="radiogroup" aria-label="Unternehmensgröße">
+                <label class="opt">
+                  <input type="radio" name="groesse" value="A – 1-4 Mitarbeiter (45,00 € mntl.)" />
+                  <span class="opt__body">
+                    <span class="opt__key">A</span>
+                    <span class="opt__label">1–4 Mitarbeiter</span>
+                    <span class="opt__price">45,00 € <small>monatlich</small></span>
+                  </span>
+                </label>
+                <label class="opt">
+                  <input type="radio" name="groesse" value="B – 5-15 Mitarbeiter (70,00 € mntl.)" />
+                  <span class="opt__body">
+                    <span class="opt__key">B</span>
+                    <span class="opt__label">5–15 Mitarbeiter</span>
+                    <span class="opt__price">70,00 € <small>monatlich</small></span>
+                  </span>
+                </label>
+                <label class="opt">
+                  <input type="radio" name="groesse" value="C – 15+ Mitarbeiter (95,00 € mntl.)" />
+                  <span class="opt__body">
+                    <span class="opt__key">C</span>
+                    <span class="opt__label">15+ Mitarbeiter</span>
+                    <span class="opt__price">95,00 € <small>monatlich</small></span>
+                  </span>
+                </label>
+              </div>
+              <p class="err-msg" data-for="an_sizeGroup">Bitte eine Unternehmensgröße wählen.</p>
+            </fieldset>
+
+            <!-- ----------------------------------------- Zahlungsweise -->
+            <fieldset class="fset">
+              <legend>Zahlungsweise <span class="req">*</span></legend>
+
+              <div class="opts opts--plain" id="an_payGroup" role="radiogroup" aria-label="Zahlungsweise">
+                <label class="opt">
+                  <input type="radio" name="zahlungsweise" value="Jährlich" />
+                  <span class="opt__body">
+                    <span class="opt__label">Jährlich <span class="opt__tag">empfohlen</span></span>
+                  </span>
+                </label>
+                <label class="opt">
+                  <input type="radio" name="zahlungsweise" value="Halbjährlich" />
+                  <span class="opt__body"><span class="opt__label">Halbjährlich</span></span>
+                </label>
+                <label class="opt">
+                  <input type="radio" name="zahlungsweise" value="Individuelle Lösung" />
+                  <span class="opt__body">
+                    <span class="opt__label">Individuelle Lösung</span>
+                    <span class="opt__note">Rücksprache erforderlich</span>
+                  </span>
+                </label>
+              </div>
+              <p class="err-msg" data-for="an_payGroup">Bitte eine Zahlungsweise wählen.</p>
+            </fieldset>
+
+            <!-- ---------------------------------------- Bankverbindung -->
+            <fieldset class="fset">
+              <legend>Bankverbindung <span class="req">*</span></legend>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="an_bank">Bankinstitut</label>
+                  <input class="input" id="an_bank" name="bankinstitut" />
+                </div>
+                <div class="field">
+                  <label for="an_holder">Kontoinhaber <span class="req">*</span></label>
+                  <input class="input" id="an_holder" name="kontoinhaber" />
+                  <p class="err-msg" data-for="an_holder">Bitte den Kontoinhaber angeben.</p>
+                </div>
+              </div>
+
+              <div class="grid-2 grid-2--iban">
+                <div class="field">
+                  <label for="an_iban">IBAN <span class="req">*</span></label>
+                  <input class="input" id="an_iban" name="iban" autocomplete="off" spellcheck="false"
+                         placeholder="DE00 0000 0000 0000 0000 00" />
+                  <p class="err-msg" data-for="an_iban">Bitte eine gültige IBAN angeben.</p>
+                </div>
+                <div class="field">
+                  <label for="an_bic">BIC <span class="req">*</span></label>
+                  <input class="input" id="an_bic" name="bic" autocomplete="off" spellcheck="false" />
+                  <p class="err-msg" data-for="an_bic">Bitte den BIC angeben.</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- ------------------------------------------ SEPA-Mandat -->
+            <fieldset class="fset">
+              <legend>SEPA-Lastschriftmandat <span class="req">*</span></legend>
+
+              <blockquote class="legal">
+                <p>Ich ermächtige Ländle Digital GmbH, Zahlungen aus diesem Vertragsverhältnis mittels
+                  SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von
+                  Ländle Digital GmbH auf mein Konto gezogenen Lastschriften einzulösen.</p>
+                <p class="legal__note">Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem
+                  Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit
+                  meinem Kreditinstitut vereinbarten Bedingungen.</p>
+              </blockquote>
+
+              <div class="field">
+                <span class="flabel" id="sigSepaLabel">Unterschrift <span class="req">*</span></span>
+                <div class="sig" data-sig="sepa">
+                  <canvas class="sig__pad" aria-labelledby="sigSepaLabel" role="img"
+                          aria-label="Unterschriftenfeld SEPA-Mandat"></canvas>
+                  <span class="sig__line" aria-hidden="true"></span>
+                  <span class="sig__hint">Mit Maus oder Finger unterschreiben</span>
+                  <button type="button" class="sig__clear">Löschen</button>
+                </div>
+                <p class="err-msg" data-for="sig-sepa">Bitte unterschreiben Sie das SEPA-Mandat.</p>
+              </div>
+            </fieldset>
+
+            <!-- ------------------------------------ Verbindliche Anmeldung -->
+            <fieldset class="fset">
+              <legend>Verbindliche Anmeldung <span class="req">*</span></legend>
+
+              <blockquote class="legal">
+                <p>Hiermit bestätige ich, dass ich die Teilnahmebedingungen und Vertragsinhalte gelesen habe
+                  und akzeptiere. Ich willige ein, dass mich der KI-Assistent des Projekts über WhatsApp oder
+                  E-Mail kontaktiert, bereitgestellt durch ThinkUp AI, inklusive dezenter System- und
+                  Servicehinweise.</p>
+              </blockquote>
+
+              <div class="field">
+                <span class="flabel" id="sigTermsLabel">Unterschrift <span class="req">*</span></span>
+                <div class="sig" data-sig="terms">
+                  <canvas class="sig__pad" aria-labelledby="sigTermsLabel" role="img"
+                          aria-label="Unterschriftenfeld verbindliche Anmeldung"></canvas>
+                  <span class="sig__line" aria-hidden="true"></span>
+                  <span class="sig__hint">Mit Maus oder Finger unterschreiben</span>
+                  <button type="button" class="sig__clear">Löschen</button>
+                </div>
+                <p class="err-msg" data-for="sig-terms">Bitte unterschreiben Sie die verbindliche Anmeldung.</p>
+              </div>
+
+              <div class="field">
+                <label class="check" for="an_privacy">
+                  <input type="checkbox" id="an_privacy" name="datenschutz" />
+                  <span>Ich habe die
+                    <a href="https://www.laendle-digital.com/nutzungsbedingungen" target="_blank" rel="noopener">Nutzungsbedingungen</a>
+                    und die
+                    <a href="https://www.laendle-digital.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>
+                    gelesen und stimme der Verarbeitung meiner Daten zu. <span class="req">*</span></span>
+                </label>
+                <p class="err-msg" data-for="an_privacy">Bitte bestätigen Sie Nutzungsbedingungen und Datenschutz.</p>
+              </div>
+            </fieldset>
+
+            <!-- Honigtopf gegen Bots – bleibt für Menschen unsichtbar -->
+            <div class="hp" aria-hidden="true">
+              <label for="an_website">Bitte leer lassen</label>
+              <input id="an_website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <!-- Hinweis, solange kein Übermittlungsziel gesetzt ist -->
+            <div class="notice" id="anNotice" hidden role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span><strong>Anmeldung noch nicht freigeschaltet.</strong> Das Übermittlungsziel für Bank-
+                und Unterschriftsdaten steht noch nicht fest. Bis dahin bleibt das Absenden gesperrt –
+                Ihre Daten verlassen diesen Browser nicht. Melden Sie sich gerne direkt bei uns:
+                <a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a>.</span>
+            </div>
+
+            <button type="submit" class="btn btn--solid btn--block" id="anSubmit">
+              Jetzt teilnehmen
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+
+            <div class="formdone" id="anDone" hidden role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Danke! Ihre Anmeldung ist eingegangen. Wir melden uns per E-Mail, sobald feststeht,
+                ob die Mindestteilnehmerzahl erreicht ist.</span>
+            </div>
+
+            <p class="formnote">Ihre Bankdaten werden ausschließlich für den Einzug der Teilnahmegebühr
+              verwendet und nicht weitergegeben. Bis zum Zustandekommen des Projekts wird nichts
+              eingezogen.</p>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <div>
+      <p class="foot__claim">Gesichter der Stadt.</p>
+      <p style="margin:0;max-width:38ch">Ein gemeinsamer Social-Media-Kanal für Rottweil – von den Betrieben
+        der Stadt, für die Menschen der Region.</p>
+    </div>
+    <div>
+      <h3>Projekt</h3>
+      <ul>
+        <li><a href="index.html#projekt">So funktioniert es</a></li>
+        <li><a href="index.html#vorteile">Vorteile</a></li>
+        <li><a href="index.html#betriebe">Betriebe</a></li>
+        <li><a href="index.html#team">Wer dahintersteckt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Teilnehmen</h3>
+      <ul>
+        <li><a href="anmeldung.html">Betrieb anmelden</a></li>
+        <li><a href="aktion-einreichen.html">Aktion einreichen</a></li>
+        <li><a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell foot__bar">
+    © <span data-year>2026</span> Ländle Digital GmbH. Alle Rechte vorbehalten. ·
+    <a href="https://www.laendle-digital.com/nutzungsbedingungen" target="_blank" rel="noopener">Nutzungsbedingungen</a> ·
+    <a href="https://www.laendle-digital.com/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung</a>
+  </div>
+</footer>
+
+<div id="chat-slot" data-chat="gesichter-der-stadt"></div>
+
+<script src="gesichter.js"></script>
+<script src="anmeldung.js"></script>
+</body>
+</html>

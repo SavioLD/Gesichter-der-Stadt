@@ -136,6 +136,8 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
 .btn--outline{border-color:currentColor;color:var(--ink)}
 .btn--outline:hover{background:var(--ink);color:var(--cream-lt);border-color:var(--ink)}
 .btn--block{width:100%}
+.btn:disabled,.btn[disabled]{opacity:.45;cursor:not-allowed}
+.btn:disabled:hover,.btn[disabled]:hover{transform:none}
 
 /* -------------------------------------------------------------- Decor --- */
 
@@ -543,6 +545,114 @@ textarea.input{resize:vertical;min-height:8em;line-height:1.55}
 .formdone svg{width:1.2em;height:1.2em;flex:none;margin-top:.2em}
 
 .formnote{margin:16px 0 0;font-size:.88rem;color:var(--ink-2)}
+
+/* --------------------------------------------------- Anmeldeformular --- */
+
+.fset{border:0;margin:0;padding:0;display:grid;gap:clamp(14px,2.2vw,20px)}
+.fset+.fset{border-top:1px solid var(--line);padding-top:clamp(22px,3.2vw,30px)}
+.fset legend{
+  padding:0;margin-bottom:2px;
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.1rem,2.4vw,1.3rem);
+}
+.fset__hint{margin:-6px 0 0;font-size:.92rem;color:var(--ink-2)}
+.field--narrow{max-width:16em}
+.grid-2--plz{grid-template-columns:1fr}
+@media (min-width:560px){.grid-2--plz{grid-template-columns:minmax(0,9em) 1fr}}
+select.input{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a514a' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right .8em center;background-size:1.1em;padding-right:2.6em}
+
+/* Auswahlkarten für Größe und Zahlungsweise */
+.opts{display:grid;gap:10px}
+.opt{display:block;cursor:pointer}
+.opt input{position:absolute;opacity:0;width:0;height:0}
+.opt__body{
+  display:flex;align-items:center;gap:14px;
+  border:1.5px solid var(--line);background:var(--cream-lt);
+  padding:clamp(13px,2vw,17px) clamp(14px,2.2vw,20px);
+  transition:border-color .16s ease,background-color .16s ease;
+}
+.opt:hover .opt__body{border-color:var(--orange)}
+.opt input:checked+.opt__body{border-color:var(--orange);background:#fff;box-shadow:inset 0 0 0 1px var(--orange)}
+.opt input:focus-visible+.opt__body{outline:3px solid var(--orange);outline-offset:2px}
+.opt__key{
+  width:2.1em;height:2.1em;flex:none;border-radius:50%;
+  display:grid;place-items:center;
+  background:var(--orange);color:#fff;
+  font-family:var(--font-display);font-weight:700;font-size:.95rem;
+}
+.opt__label{font-family:var(--font-display);font-weight:700;font-size:1.05rem;line-height:1.25}
+.opt__price{
+  margin-left:auto;text-align:right;flex:none;
+  font-family:var(--font-display);font-weight:700;font-size:1.1rem;white-space:nowrap;
+}
+.opt__price small{display:block;font-weight:400;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.opt__tag{
+  display:inline-block;margin-left:.5em;vertical-align:middle;
+  background:var(--orange);color:#fff;border-radius:999px;
+  padding:.25em .7em;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;
+}
+.opt__note{margin-left:auto;font-family:var(--font-text);font-size:.86rem;color:var(--ink-2);text-align:right}
+.opts.err .opt__body{border-color:#c0392b}
+
+/* Rechtstexte im Formular */
+.legal{
+  margin:0;padding:clamp(15px,2.2vw,20px);
+  background:var(--cream);border-left:3px solid var(--orange);
+}
+.legal p{margin:0;font-size:.95rem;line-height:1.6;font-style:italic}
+.legal p+p{margin-top:.8em}
+.legal__note{font-style:normal;font-size:.88rem!important;color:var(--ink-2)}
+
+/* Unterschriftenfeld */
+.sig{
+  position:relative;
+  height:clamp(150px,26vw,190px);
+  border:1.5px dashed var(--line);
+  background:var(--cream-lt);
+  transition:border-color .16s ease,background-color .16s ease;
+}
+.sig.is-signed{border-style:solid;border-color:var(--orange);background:#fff}
+.sig.err{border-color:#c0392b}
+.sig__pad{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sig__line{position:absolute;left:12%;right:12%;bottom:44px;border-bottom:1px solid var(--line)}
+.sig__hint{
+  position:absolute;left:0;right:0;bottom:18px;text-align:center;pointer-events:none;
+  font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-2);
+  font-family:var(--font-display);font-weight:700;
+}
+.sig.is-signed .sig__hint,.sig.is-signed .sig__line{opacity:0}
+.sig__clear{
+  position:absolute;top:10px;right:10px;
+  border:1px solid var(--line);background:#fff;color:var(--ink-2);
+  border-radius:999px;padding:.35em .9em;cursor:pointer;
+  font-family:var(--font-display);font-weight:700;font-size:.72rem;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.sig__clear:hover{border-color:var(--orange);color:var(--orange-dark)}
+
+/* Hinweisbox */
+.notice{
+  display:flex;gap:11px;align-items:flex-start;
+  background:#fdf4e7;border:1px solid #e6c79a;color:#6b4a1d;
+  padding:15px 17px;font-size:.94rem;line-height:1.55;
+}
+.notice svg{width:1.25em;height:1.25em;flex:none;margin-top:.15em}
+.notice a{color:var(--orange-dark)}
+
+/* Seitenspalte der Anmeldung */
+.formside__lead{margin:0 0 1em;font-size:1rem;line-height:1.62;color:var(--ink-2)}
+.callout{background:var(--paper);border:1px solid var(--line);padding:clamp(18px,2.6vw,24px);margin-top:clamp(18px,2.6vw,26px)}
+.callout h3{font-size:1.1rem;margin:0 0 .6em}
+.callout p{margin:0 0 .7em;font-size:.93rem;line-height:1.55;color:var(--ink-2)}
+.callout p:last-child{margin-bottom:0}
+.callout strong{color:var(--ink)}
+.formside__claim{
+  margin:clamp(18px,2.6vw,26px) 0 0;
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.1rem,2.4vw,1.35rem);line-height:1.3;
+}
 
 /* Honigtopf gegen Bots – für Menschen unsichtbar */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}

@@ -8,9 +8,11 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Projekt, Vorteile, Ziele, Betriebe, Anmeldung |
+| `anmeldung.html` | Verbindliche Anmeldung mit SEPA-Mandat und Unterschriften |
 | `aktion-einreichen.html` | Formular für teilnehmende Betriebe |
 | `gesichter.css` | Gesamtes Styling beider Seiten |
-| `gesichter.js` | Navigation, Scroll-Reveal, Formular-Validierung |
+| `gesichter.js` | Navigation, Scroll-Reveal, Aktions-Formular |
+| `anmeldung.js` | Anmeldeformular: Unterschriftenfelder, IBAN-Prüfung, Versand |
 | `posts/` | 43 Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
@@ -40,7 +42,29 @@ Bewusst ohne Fotos.
 
 Schriften kommen von Google Fonts (Roboto Condensed, Inter).
 
-## Formular
+## Anmeldung (`anmeldung.html`)
+
+Enthält Bankverbindung und zwei Unterschriften. Diese Daten gehen
+bewusst **nicht** per `mailto` raus – unverschlüsselte E-Mail ist für
+IBAN und Unterschrift der falsche Kanal.
+
+Stattdessen sendet das Formular ein JSON per POST an die URL im
+Attribut `data-endpoint` des `<form>`:
+
+```html
+<form id="anmeldungForm" data-endpoint="" novalidate>
+```
+
+**Solange das Attribut leer ist, bleibt das Absenden gesperrt** und ein
+Hinweis erklärt das den Besuchern. Die Daten verlassen den Browser
+nicht. Sobald die SEPA-Lösung feststeht, dort die URL eintragen – mehr
+ist nicht nötig. Den Aufbau des Bodys dokumentiert der Kopf von
+`anmeldung.js`.
+
+Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, IBAN inklusive
+Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
+
+## Aktion einreichen (`aktion-einreichen.html`)
 
 `aktion-einreichen.html` läuft ohne Backend: Die Pflichtfelder werden im
 Browser geprüft, danach öffnet sich das E-Mail-Programm mit der fertigen
