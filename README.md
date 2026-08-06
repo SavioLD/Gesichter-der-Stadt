@@ -84,6 +84,11 @@ python3 -m http.server 8000
 
 ## Offene Punkte
 
+- **SEPA-Mandat**: Gläubiger-Identifikationsnummer und Mandatsreferenz
+  fehlen noch. In `anmeldung.html` ist der Block bereits vorbereitet und
+  auskommentiert – Werte eintragen und einkommentieren.
+- **Handelsregisternummer**: gehört ins Impressum, sobald sie vorliegt.
+
 - **Rechtstexte**: `impressum.html` und `datenschutz.html` sind verlinkt,
   liegen aber noch nicht im Repo. Beide anlegen, sonst laufen die
   Footer-Links ins Leere.
