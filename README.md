@@ -62,10 +62,20 @@ ist nicht nötig. Den Aufbau des Bodys dokumentiert der Kopf von
 `anmeldung.js`.
 
 Die Teilnahmebedingungen stehen aufklappbar direkt über der
-verbindlichen Unterschrift. Zwei Schwellen sind darin geregelt: **45**
-Anmeldungen für den Start, **15** aktive Betriebe für die Fortführung.
-Beide Zahlen stehen in `anmeldung.html` im Klartext – bei Änderung an
-allen Stellen mitziehen (Seitenspalte und Ziffern 1, 3, 4).
+verbindlichen Unterschrift.
+
+Alle Teilnahmen laufen in einem **gemeinsamen Projektjahr** von zwölf
+Monaten und verlängern sich zusammen. Wer später beitritt, zahlt
+anteilig bis zum Ende des laufenden Projektjahres. Dadurch gibt es
+einen Stichtag im Jahr statt vieler Einzeltermine – und niemand zahlt
+im Voraus für einen Zeitraum, in dem das Projekt schon ausgelaufen
+sein kann.
+
+Drei Zahlen sind geregelt: **45** Anmeldungen für den Start, **15**
+aktive Betriebe für die Fortführung, **20** als Schwelle für die
+Frühwarnung. Alle stehen in `anmeldung.html` im Klartext – bei
+Änderung an sämtlichen Stellen mitziehen (Seitenspalte und Ziffern 1,
+4, 5).
 
 Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, IBAN inklusive
 Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
