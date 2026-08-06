@@ -11,8 +11,25 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | `aktion-einreichen.html` | Formular für teilnehmende Betriebe |
 | `gesichter.css` | Gesamtes Styling beider Seiten |
 | `gesichter.js` | Navigation, Scroll-Reveal, Formular-Validierung |
+| `posts/` | 43 Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
+
+## Betriebe ergänzen
+
+Die Post-Grafik (1080×1080 PNG) nach `posts/` legen und in `index.html`
+im Raster `.posts` eine Kachel ergänzen:
+
+```html
+<figure class="post rv">
+  <img src="posts/name-des-betriebs.png" alt="Gesichter unserer Stadt: Name des Betriebs"
+       loading="lazy" width="1080" height="1080" />
+  <figcaption>Name des Betriebs</figcaption>
+</figure>
+```
+
+Die Bildunterschrift ist nur für Screenreader sichtbar – der Name steht
+bereits in der Grafik.
 
 ## Design
 
@@ -47,10 +64,11 @@ python3 -m http.server 8000
   liegen aber noch nicht im Repo. Beide anlegen, sonst laufen die
   Footer-Links ins Leere.
 - **Social-Profile**: Die Icons im Footer stehen auf `href="#"`.
-- **Logos**: beach0741 und Borrelli sind getippte Platzhalter. Logo als
-  PNG ablegen und in der Karte das `<span class="mark">` durch ein
-  `<img>` ersetzen.
-- **Teilnehmerzahl**: Die „37" in `index.html` ist fest hinterlegt.
+- **Teilnehmerzahl**: Die „43" in `index.html` ist fest hinterlegt und
+  muss bei neuen Betrieben mitgezogen werden – an zwei Stellen: im
+  Zähler unter „Vorteile" und im Text über dem Raster.
+- **Schreibweise**: Die Datei heißt `bourelli.png`, das Logo darauf
+  liest sich „Borrelli". Bitte einmal festlegen.
 - **Chatbot**: `<div id="chat-slot">` liegt auf beiden Seiten bereit,
   die Skript-Einbindung ist auskommentiert.
 
