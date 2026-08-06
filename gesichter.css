@@ -606,6 +606,36 @@ select.input{appearance:none;cursor:pointer;
 .legal__note{font-style:normal;font-size:.88rem!important;color:var(--ink-2)}
 .legal__ids{font-style:normal;font-size:.88rem!important;font-variant-numeric:tabular-nums}
 
+/* Aufklappbare Teilnahmebedingungen */
+.terms{border:1px solid var(--line);background:var(--cream-lt)}
+.terms summary{
+  cursor:pointer;list-style:none;
+  padding:clamp(13px,2vw,16px) clamp(14px,2.2vw,18px);
+  display:flex;align-items:center;gap:.6em;
+  font-family:var(--font-display);font-weight:700;
+  font-size:.86rem;letter-spacing:.12em;text-transform:uppercase;
+}
+.terms summary::-webkit-details-marker{display:none}
+.terms summary::before{
+  content:"";width:.5em;height:.5em;flex:none;
+  border-right:2px solid var(--orange);border-bottom:2px solid var(--orange);
+  transform:rotate(-45deg);transition:transform .18s ease;
+}
+.terms[open] summary::before{transform:rotate(45deg)}
+.terms summary:hover{color:var(--orange-dark)}
+.terms__body{
+  padding:0 clamp(14px,2.2vw,18px) clamp(16px,2.4vw,20px);
+  border-top:1px solid var(--line);
+  max-height:22em;overflow-y:auto;
+}
+.terms__body h4{
+  margin:1.2em 0 .35em;
+  font-family:var(--font-display);font-weight:700;font-size:1rem;
+}
+.terms__body h4:first-child{margin-top:1em}
+.terms__body p{margin:0;font-size:.92rem;line-height:1.6;color:var(--ink-2)}
+.terms__body strong{color:var(--ink)}
+
 /* Unterschriftenfeld */
 .sig{
   position:relative;

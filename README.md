@@ -61,6 +61,12 @@ nicht. Sobald die SEPA-Lösung feststeht, dort die URL eintragen – mehr
 ist nicht nötig. Den Aufbau des Bodys dokumentiert der Kopf von
 `anmeldung.js`.
 
+Die Teilnahmebedingungen stehen aufklappbar direkt über der
+verbindlichen Unterschrift. Zwei Schwellen sind darin geregelt: **45**
+Anmeldungen für den Start, **15** aktive Betriebe für die Fortführung.
+Beide Zahlen stehen in `anmeldung.html` im Klartext – bei Änderung an
+allen Stellen mitziehen (Seitenspalte und Ziffern 1, 3, 4).
+
 Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, IBAN inklusive
 Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
 
