@@ -73,11 +73,15 @@ einen Stichtag im Jahr statt vieler Einzeltermine – und niemand zahlt
 im Voraus für einen Zeitraum, in dem das Projekt schon ausgelaufen
 sein kann.
 
-Drei Zahlen sind geregelt: **45** Anmeldungen für den Start, **15**
-aktive Betriebe für die Fortführung, **20** als Schwelle für die
-Frühwarnung. Alle stehen in `anmeldung.html` im Klartext – bei
-Änderung an sämtlichen Stellen mitziehen (Seitenspalte und Ziffern 1,
-4, 5).
+Zwei Zahlen sind geregelt: **15** aktive Betriebe für die Fortführung,
+**20** als Schwelle für die Frühwarnung. Beide stehen in
+`anmeldung.html` im Klartext – bei Änderung an sämtlichen Stellen
+mitziehen (Seitenspalte und Ziffern 4, 5).
+
+Ziffer 7 grenzt den Geltungsbereich ab: Die Bedingungen gelten für
+Anmeldungen über dieses Formular. Die 44 Betriebe, die vorher über
+Tally abgeschlossen haben, sind daran **nicht** gebunden – dafür
+bräuchte es eine Ergänzungsvereinbarung mit deren Zustimmung.
 
 Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, IBAN inklusive
 Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
