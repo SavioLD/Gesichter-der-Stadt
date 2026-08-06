@@ -55,7 +55,7 @@
   var form = $("#aktionForm");
   if (!form) return;
 
-  var MAIL_TO = form.getAttribute("data-mailto") || "info@wave2network.de";
+  var MAIL_TO = form.getAttribute("data-mailto") || "info@laendle-digital.com";
   var emailOk = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); };
 
   var showErr = function (id, on) {
