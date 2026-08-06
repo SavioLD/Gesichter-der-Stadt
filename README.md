@@ -67,8 +67,6 @@ python3 -m http.server 8000
 - **Teilnehmerzahl**: Die „43" in `index.html` ist fest hinterlegt und
   muss bei neuen Betrieben mitgezogen werden – an zwei Stellen: im
   Zähler unter „Vorteile" und im Text über dem Raster.
-- **Schreibweise**: Die Datei heißt `bourelli.png`, das Logo darauf
-  liest sich „Borrelli". Bitte einmal festlegen.
 - **Chatbot**: `<div id="chat-slot">` liegt auf beiden Seiten bereit,
   die Skript-Einbindung ist auskommentiert.
 
