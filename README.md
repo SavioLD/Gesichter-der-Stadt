@@ -92,11 +92,10 @@ python3 -m http.server 8000
 - **Rechtstexte**: `impressum.html` und `datenschutz.html` sind verlinkt,
   liegen aber noch nicht im Repo. Beide anlegen, sonst laufen die
   Footer-Links ins Leere.
-- **Social-Profile**: Die Icons im Footer stehen auf `href="#"`.
 - **Teilnehmerzahl**: Die „43" in `index.html` ist fest hinterlegt und
   muss bei neuen Betrieben mitgezogen werden – an zwei Stellen: im
   Zähler unter „Vorteile" und im Text über dem Raster.
-- **Chatbot**: `<div id="chat-slot">` liegt auf beiden Seiten bereit,
+- **Chatbot**: `<div id="chat-slot">` liegt auf allen Seiten bereit,
   die Skript-Einbindung ist auskommentiert.
 
 ## GitHub Pages
