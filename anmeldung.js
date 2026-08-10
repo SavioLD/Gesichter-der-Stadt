@@ -10,6 +10,14 @@
    ist, bleibt das Absenden gesperrt und ein Hinweis erscheint – die
    Daten verlassen den Browser nicht.
 
+   Ziel der Zustellung ist info@laendle-digital.com. Per mailto geht
+   das nicht: allein die beiden Unterschriften ergeben rund 25.000
+   Zeichen, viele Systeme brechen eine mailto-Adresse aber schon bei
+   etwa 2.000 ab. Es braucht daher einen Dienst, der die Einreichung
+   entgegennimmt und an info@ weiterleitet (z. B. Formspree). Der
+   Accept-Header unten sorgt dafür, dass solche Dienste mit JSON statt
+   einer HTML-Seite antworten.
+
    Aufbau des POST-Bodys:
      {
        firmenname, email, telefon,
@@ -239,7 +247,7 @@
 
     fetch(ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload)
     }).then(function (res) {
       if (!res.ok) throw new Error("HTTP " + res.status);

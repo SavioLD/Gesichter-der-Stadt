@@ -62,9 +62,31 @@ Attribut `data-endpoint` des `<form>`:
 
 **Solange das Attribut leer ist, bleibt das Absenden gesperrt** und ein
 Hinweis erklärt das den Besuchern. Die Daten verlassen den Browser
-nicht. Sobald die SEPA-Lösung feststeht, dort die URL eintragen – mehr
-ist nicht nötig. Den Aufbau des Bodys dokumentiert der Kopf von
-`anmeldung.js`.
+nicht. Den Aufbau des Bodys dokumentiert der Kopf von `anmeldung.js`.
+
+### Warum kein mailto
+
+Alle Einreichungen sollen an `info@laendle-digital.com` gehen. Für das
+Aktions-Formular reicht dafür `mailto`. Für Anmeldung und Ergänzung
+nicht: die beiden Unterschriften ergeben zusammen rund **25.000
+Zeichen**, viele Systeme brechen eine `mailto`-Adresse aber schon bei
+etwa **2.000** ab. Dazu kommt, dass IBAN und Unterschrift nichts in
+einer unverschlüsselten E-Mail zu suchen haben.
+
+### Freischalten
+
+1. Bei einem Formular-Dienst ein Formular anlegen, das an
+   `info@laendle-digital.com` zustellt (z. B. Formspree – funktioniert
+   ohne eigenen Server und damit auch auf GitHub Pages).
+2. Die Endpunkt-URL in `anmeldung.html` und `ergaenzung.html` bei
+   `data-endpoint` eintragen.
+3. Fertig – Validierung, Unterschriften und Versand laufen dann.
+
+Der `Accept: application/json`-Header ist bereits gesetzt, damit solche
+Dienste mit JSON antworten statt mit einer Weiterleitungsseite.
+
+Vor dem Einsatz mit Bankdaten: Auftragsverarbeitungsvertrag und
+Serverstandort des Dienstes prüfen.
 
 Die Teilnahmebedingungen stehen aufklappbar direkt über der
 verbindlichen Unterschrift.

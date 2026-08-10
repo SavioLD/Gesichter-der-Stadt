@@ -7,6 +7,7 @@
    Wie beim Anmeldeformular: Versand per POST an die URL aus
    data-endpoint am <form>. Solange leer, bleibt das Absenden
    gesperrt – die Unterschrift verlässt den Browser nicht.
+   Zustellung geht an info@laendle-digital.com.
 
    Aufbau des POST-Bodys:
      {
@@ -114,7 +115,7 @@
 
     fetch(ENDPOINT, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
       body: JSON.stringify(payload)
     }).then(function (res) {
       if (!res.ok) throw new Error("HTTP " + res.status);
