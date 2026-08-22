@@ -15,4 +15,4 @@
    Der Schlüssel ist öffentlich und darf im Quelltext stehen – er
    erlaubt nur das Zustellen an die hinterlegte Adresse.
 ============================================================ */
-window.GDS_WEB3FORMS_KEY = "";
+window.GDS_WEB3FORMS_KEY = "bf808e37-6e67-475d-b83e-68e95ab03c54";
