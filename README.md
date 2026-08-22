@@ -10,11 +10,13 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | `index.html` | Startseite: Projekt, Vorteile, Ziele, Betriebe, Anmeldung |
 | `anmeldung.html` | Verbindliche Anmeldung mit SEPA-Mandat und Unterschriften |
 | `ergaenzung.html` | Ergänzung zur Teilnahme für Betriebe, die bereits dabei sind |
+| `betriebsprofil.html` | Logo, Branche und Angaben – von den Betrieben selbst |
 | `aktion-einreichen.html` | Formular für teilnehmende Betriebe |
 | `gesichter.css` | Gesamtes Styling beider Seiten |
 | `gesichter.js` | Navigation, Scroll-Reveal, Aktions-Formular |
 | `anmeldung.js` | Anmeldeformular: IBAN-Prüfung, Versand |
 | `ergaenzung.js` | Ergänzungsformular: Prüfung und Versand |
+| `betriebsprofil.js` | Betriebsprofil: Prüfung, Logo-Upload, Versand |
 | `signature.js` | Unterschriftenfeld, von beiden Formularen genutzt |
 | `datenschutz.html` | Datenschutzerklärung |
 | `nutzungsbedingungen.html` | AGB für die Teilnahme |

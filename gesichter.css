@@ -697,6 +697,25 @@ select.input{appearance:none;cursor:pointer;
   font-size:clamp(1.1rem,2.4vw,1.35rem);line-height:1.3;
 }
 
+/* Datei-Auswahl (Logo-Upload) */
+.filefield{
+  display:flex;align-items:center;gap:14px;cursor:pointer;
+  border:1.5px dashed var(--line);background:var(--cream-lt);
+  padding:13px 16px;
+  transition:border-color .16s ease,background-color .16s ease;
+}
+.filefield:hover{border-color:var(--orange)}
+.filefield input[type=file]{position:absolute;width:1px;height:1px;opacity:0;overflow:hidden}
+.filefield input[type=file]:focus-visible+.filefield__btn{outline:3px solid var(--orange);outline-offset:2px}
+.filefield__btn{
+  flex:none;background:var(--ink);color:var(--cream-lt);border-radius:999px;
+  padding:.55em 1.2em;
+  font-family:var(--font-display);font-weight:700;
+  font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
+}
+.filefield__name{font-size:.92rem;color:var(--ink-2);overflow-wrap:anywhere}
+.field.err .filefield,.filefield.err{border-color:#c0392b;background:#fdf2f0}
+
 /* Honigtopf gegen Bots – für Menschen unsichtbar */
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 

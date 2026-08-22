@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Betriebsprofil – Gesichter der Stadt</title>
+<meta name="description" content="Teilnehmende Betriebe hinterlegen hier ihr Logo, ihre Branche und ihre Angaben für die Vorstellung bei „Gesichter der Stadt"." />
+<meta name="robots" content="noindex" />
+<link rel="icon" href="logo.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="gesichter.css" />
+<script>if(!matchMedia("(prefers-reduced-motion:reduce)").matches)document.documentElement.classList.add("anim");</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Zum Inhalt springen</a>
+
+<header class="top">
+  <div class="shell top__in">
+    <a class="top__brand" href="index.html">Gesichter der Stadt</a>
+    <nav class="top__nav" aria-label="Hauptnavigation">
+      <a href="index.html#projekt">Projekt</a>
+      <a href="index.html#vorteile">Vorteile</a>
+      <a href="index.html#betriebe">Betriebe</a>
+      <a href="index.html#team">Team</a>
+      <a href="aktion-einreichen.html">Aktion einreichen</a>
+      <a href="anmeldung.html" class="tab-cta">Jetzt anmelden</a>
+    </nav>
+    <button class="burger" id="burger" aria-label="Menü öffnen" aria-expanded="false" aria-controls="mobileNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <nav class="top__mobile" id="mobileNav" aria-label="Navigation mobil">
+    <a href="index.html#projekt">Projekt</a>
+    <a href="index.html#vorteile">Vorteile</a>
+    <a href="index.html#betriebe">Betriebe</a>
+    <a href="index.html#team">Team</a>
+    <a href="aktion-einreichen.html">Aktion einreichen</a>
+    <a href="anmeldung.html" class="tab-cta">Jetzt anmelden</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <section class="phead">
+    <span class="dots" aria-hidden="true"></span>
+    <div class="shell phead__in rv">
+      <p class="eyebrow eyebrow--dot eyebrow--light">Für teilnehmende Betriebe</p>
+      <h1>Ihr <span class="it">Betriebsprofil</span></h1>
+      <p class="lede lede--light">Damit wir Sie richtig vorstellen: Ihr Logo, Ihre Branche und Ihre Angaben –
+        von Ihnen selbst, statt von uns zusammengesucht.</p>
+    </div>
+  </section>
+
+  <section class="formwrap arc-top">
+    <div class="shell formgrid">
+
+      <aside class="formside rv">
+        <p class="eyebrow">Warum wir fragen</p>
+        <h2 class="caps">Ihre Angaben, <span class="hl">nicht unsere</span></h2>
+
+        <p class="formside__lead">Bisher haben wir Logos und Branchen selbst zusammengetragen. Das ist an
+          einigen Stellen danebengegangen – Logos in schlechter Qualität, Kategorien, die nicht zum Betrieb
+          passen.</p>
+        <p class="formside__lead">Deshalb fragen wir jetzt nach. Ein paar Minuten, und Ihre Vorstellung
+          stimmt.</p>
+
+        <div class="callout">
+          <h3>Was wir daraus machen</h3>
+          <p><strong>Ihr Logo</strong> ersetzt das bisherige auf Ihrer Kachel und in allen künftigen
+            Beiträgen.</p>
+          <p><strong>Ihre Kategorie</strong> steht künftig auf Ihrer Grafik – im Wortlaut, den Sie hier
+            angeben.</p>
+          <p><strong>Ihr Instagram-Account</strong> wird in Beiträgen über Sie verlinkt.</p>
+          <p><strong>Ihre Beschreibung</strong> ist die Grundlage für Text und Video.</p>
+        </div>
+
+        <p class="formside__claim">Fragen? Rufen Sie durch oder schreiben Sie an
+          info@laendle-digital.com.</p>
+      </aside>
+
+      <div class="formcard rv">
+        <div class="formcard__head">
+          <h3>Ihre Angaben</h3>
+          <p>Felder mit <span class="req">*</span> sind Pflichtangaben. Alles andere hilft uns, ist aber
+            freiwillig.</p>
+        </div>
+
+        <form id="profilForm" novalidate>
+          <div class="fields">
+
+            <fieldset class="fset">
+              <legend>Betrieb und Kontakt</legend>
+
+              <div class="field">
+                <label for="bp_company">Firmenname <span class="req">*</span></label>
+                <input class="input" id="bp_company" name="firmenname" autocomplete="organization" />
+                <p class="err-msg" data-for="bp_company">Bitte den Firmennamen angeben.</p>
+              </div>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="bp_contact">Ansprechpartner <span class="req">*</span></label>
+                  <input class="input" id="bp_contact" name="ansprechpartner" autocomplete="name" />
+                  <p class="err-msg" data-for="bp_contact">Bitte einen Ansprechpartner angeben.</p>
+                </div>
+                <div class="field">
+                  <label for="bp_email">E-Mail <span class="req">*</span></label>
+                  <input class="input" id="bp_email" name="email" type="email" autocomplete="email" placeholder="name@betrieb.de" />
+                  <p class="err-msg" data-for="bp_email">Bitte eine gültige E-Mail-Adresse angeben.</p>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="bp_phone">Telefon <span class="opt">(optional)</span></label>
+                <input class="input" id="bp_phone" name="telefon" type="tel" autocomplete="tel" />
+              </div>
+            </fieldset>
+
+            <fieldset class="fset">
+              <legend>Ihr Logo <span class="req">*</span></legend>
+              <p class="fset__hint">Am besten die Originaldatei – PNG mit transparentem Hintergrund, SVG
+                oder ein hoch aufgelöstes JPG. Bitte keinen Screenshot von Ihrer Website.</p>
+
+              <div class="field">
+                <label class="filefield" for="bp_logo">
+                  <input type="file" id="bp_logo" name="logo" accept="image/png,image/jpeg,image/svg+xml,image/webp" />
+                  <span class="filefield__btn">Datei wählen</span>
+                  <span class="filefield__name" id="bp_logoName">Keine Datei gewählt</span>
+                </label>
+                <p class="err-msg" data-for="bp_logo">Bitte laden Sie Ihr Logo hoch (höchstens 5 MB).</p>
+              </div>
+            </fieldset>
+
+            <fieldset class="fset">
+              <legend>Einordnung</legend>
+
+              <div class="field">
+                <label for="bp_branche">Branche <span class="req">*</span></label>
+                <select class="input" id="bp_branche" name="branche">
+                  <option value="">Bitte wählen</option>
+                  <option>Einzelhandel</option>
+                  <option>Gastronomie &amp; Genuss</option>
+                  <option>Handwerk &amp; Bau</option>
+                  <option>Gesundheit &amp; Wohlbefinden</option>
+                  <option>Dienstleistung &amp; Beratung</option>
+                  <option>Digital &amp; Technik</option>
+                  <option>Freizeit &amp; Erleben</option>
+                  <option>Immobilien &amp; Finanzen</option>
+                  <option>Übernachtung &amp; Tourismus</option>
+                  <option>Sonstiges</option>
+                </select>
+                <p class="err-msg" data-for="bp_branche">Bitte eine Branche wählen.</p>
+              </div>
+
+              <div class="field">
+                <label for="bp_label">Text auf Ihrer Grafik <span class="req">*</span></label>
+                <input class="input" id="bp_label" name="grafiktext" maxlength="42"
+                       placeholder="z. B. 3D-Druck, Geschenke &amp; Souvenirs" />
+                <p class="fset__hint">Diese Zeile steht oben rechts auf Ihrer Kachel. Formulieren Sie sie so,
+                  wie Sie gefunden werden wollen – höchstens 42 Zeichen.</p>
+                <p class="err-msg" data-for="bp_label">Bitte den Text für Ihre Grafik angeben.</p>
+              </div>
+
+              <div class="field">
+                <label for="bp_text">Was macht Ihr Betrieb? <span class="req">*</span></label>
+                <textarea class="input" id="bp_text" name="beschreibung" rows="4"
+                  placeholder="Zwei, drei Sätze: Was bieten Sie an, was ist Ihr Schwerpunkt, was sollen die Leute über Sie wissen?"></textarea>
+                <p class="err-msg" data-for="bp_text">Bitte kurz beschreiben, was Ihr Betrieb macht.</p>
+              </div>
+            </fieldset>
+
+            <fieldset class="fset">
+              <legend>Online</legend>
+
+              <div class="grid-2">
+                <div class="field">
+                  <label for="bp_insta">Instagram <span class="opt">(optional)</span></label>
+                  <input class="input" id="bp_insta" name="instagram" placeholder="@ihrbetrieb" />
+                  <p class="fset__hint">Damit wir Sie in Beiträgen verlinken können.</p>
+                </div>
+                <div class="field">
+                  <label for="bp_web">Website <span class="opt">(optional)</span></label>
+                  <input class="input" id="bp_web" name="website_url" type="url" placeholder="https://" />
+                </div>
+              </div>
+            </fieldset>
+
+            <!-- Honigtopf gegen Bots – bleibt für Menschen unsichtbar -->
+            <div class="hp" aria-hidden="true">
+              <label for="bp_website">Bitte leer lassen</label>
+              <input id="bp_website" name="website" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="field">
+              <label class="check" for="bp_privacy">
+                <input type="checkbox" id="bp_privacy" name="datenschutz" />
+                <span>Ich stimme der Verarbeitung meiner Angaben gemäß der
+                  <a href="datenschutz.html">Datenschutzerklärung</a> zu und bestätige, dass ich das Logo
+                  verwenden darf. <span class="req">*</span></span>
+              </label>
+              <p class="err-msg" data-for="bp_privacy">Bitte bestätigen Sie die Angabe.</p>
+            </div>
+
+            <div class="notice" id="bpNotice" hidden role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span><strong>Noch nicht freigeschaltet.</strong> Der Versand ist noch nicht eingerichtet.
+                Schreiben Sie uns gerne direkt:
+                <a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a>.</span>
+            </div>
+
+            <button type="submit" class="btn btn--solid btn--block" id="bpSubmit">
+              Angaben senden
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </button>
+
+            <div class="formdone" id="bpDone" hidden role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+              <span>Danke! Ihre Angaben sind da. Wir bauen Ihre Kachel damit neu und melden uns, wenn etwas
+                unklar ist.</span>
+            </div>
+
+            <p class="formnote">Ihre Angaben verwenden wir ausschließlich für Ihre Vorstellung im Projekt.</p>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot__in">
+    <div>
+      <p class="foot__claim">Gesichter der Stadt.</p>
+      <p style="margin:0;max-width:38ch">Ein gemeinsamer Social-Media-Kanal für Rottweil – von den Betrieben
+        der Stadt, für die Menschen der Region.</p>
+      <div class="social">
+        <a href="https://www.instagram.com/rottweil_aktiv/" target="_blank" rel="noopener" aria-label="Gesichter der Stadt auf Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+          <span>rottweil_aktiv</span>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h3>Projekt</h3>
+      <ul>
+        <li><a href="index.html#projekt">So funktioniert es</a></li>
+        <li><a href="index.html#vorteile">Vorteile</a></li>
+        <li><a href="index.html#betriebe">Betriebe</a></li>
+        <li><a href="index.html#team">Wer dahintersteckt</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Teilnehmen</h3>
+      <ul>
+        <li><a href="anmeldung.html">Betrieb anmelden</a></li>
+        <li><a href="aktion-einreichen.html">Aktion einreichen</a></li>
+        <li><a href="betriebsprofil.html">Betriebsprofil</a></li>
+        <li><a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="shell foot__bar">
+    © <span data-year>2026</span> Ländle Digital GmbH. Alle Rechte vorbehalten. ·
+    <a href="nutzungsbedingungen.html">Nutzungsbedingungen</a> ·
+    <a href="datenschutz.html">Datenschutzerklärung</a>
+  </div>
+</footer>
+
+<div id="chat-slot" data-chat="gesichter-der-stadt"></div>
+
+<script src="config.js"></script>
+<script src="gds-submit.js"></script>
+<script src="gesichter.js"></script>
+<script src="betriebsprofil.js"></script>
+</body>
+</html>
