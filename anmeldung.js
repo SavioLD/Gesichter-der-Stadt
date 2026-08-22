@@ -1,34 +1,19 @@
 /* ============================================================
    Gesichter der Stadt – Anmeldeformular
 
-   Enthält Bankverbindung und Unterschriften. Diese Daten werden
-   bewusst NICHT per mailto verschickt: unverschlüsselte E-Mail ist
-   für IBAN und Unterschrift der falsche Kanal.
+   Enthält Bankverbindung und zwei Unterschriften. Versendet wird
+   über Web3Forms an die Adresse, die dort zum Access Key hinterlegt
+   ist (info@laendle-digital.com). Der Schlüssel steht in config.js.
 
-   Stattdessen sendet das Formular ein JSON per POST an die URL aus
-   dem Attribut data-endpoint am <form>. Solange das Attribut leer
-   ist, bleibt das Absenden gesperrt und ein Hinweis erscheint – die
-   Daten verlassen den Browser nicht.
+   Per mailto ginge das nicht: allein die beiden Unterschriften
+   ergeben rund 25.000 Zeichen, viele Systeme brechen eine
+   mailto-Adresse aber schon bei etwa 2.000 ab.
 
-   Ziel der Zustellung ist info@laendle-digital.com. Per mailto geht
-   das nicht: allein die beiden Unterschriften ergeben rund 25.000
-   Zeichen, viele Systeme brechen eine mailto-Adresse aber schon bei
-   etwa 2.000 ab. Es braucht daher einen Dienst, der die Einreichung
-   entgegennimmt und an info@ weiterleitet (z. B. Formspree). Der
-   Accept-Header unten sorgt dafür, dass solche Dienste mit JSON statt
-   einer HTML-Seite antworten.
+   Die Unterschriften gehen als echte PNG-Dateien mit, nicht als
+   Textblock im E-Mail-Text.
 
-   Aufbau des POST-Bodys:
-     {
-       firmenname, email, telefon,
-       anrede, vorname, nachname, adresse, plz, stadt,
-       groesse, zahlungsweise,
-       bankinstitut, kontoinhaber, iban, bic,
-       unterschriftSepa,   // PNG als data:-URL
-       unterschriftAgb,    // PNG als data:-URL
-       datenschutz,        // true
-       gesendetAm          // ISO-Zeitstempel
-     }
+   Solange kein Schlüssel hinterlegt ist, bleibt das Absenden
+   gesperrt – die Daten verlassen den Browser nicht.
 ============================================================ */
 (function () {
   "use strict";
@@ -39,7 +24,6 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  var ENDPOINT = (form.getAttribute("data-endpoint") || "").trim();
 
   /* ------------------------------------------------ Unterschriften --- */
 
@@ -152,7 +136,7 @@
 
   var notice = $("#anNotice");
   var submitBtn = $("#anSubmit");
-  if (!ENDPOINT) {
+  if (!window.GdsSubmit || !window.GdsSubmit.bereit()) {
     notice.hidden = false;
     submitBtn.disabled = true;
     submitBtn.setAttribute("aria-describedby", "anNotice");
@@ -162,7 +146,7 @@
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    if (!ENDPOINT) return;
+    if (!window.GdsSubmit || !window.GdsSubmit.bereit()) return;
 
     var trap = $("#an_website");
     if (trap && trap.value) return;
@@ -219,39 +203,40 @@
     }
 
     var checked = function (id) { var el = $("input:checked", document.getElementById(id)); return el ? el.value : ""; };
-    var payload = {
-      firmenname: val("an_company"),
-      email: val("an_email"),
-      telefon: val("an_phone"),
-      anrede: val("an_salutation"),
-      vorname: val("an_first"),
-      nachname: val("an_last"),
-      adresse: val("an_street"),
-      plz: val("an_zip"),
-      stadt: val("an_city"),
-      groesse: checked("an_sizeGroup"),
-      zahlungsweise: checked("an_payGroup"),
-      bankinstitut: val("an_bank"),
-      kontoinhaber: val("an_holder"),
-      iban: val("an_iban").replace(/\s+/g, ""),
-      bic: val("an_bic").toUpperCase(),
-      unterschriftSepa: pads.sepa.toDataURL(),
-      unterschriftAgb: pads.terms.toDataURL(),
-      datenschutz: true,
-      gesendetAm: new Date().toISOString()
+    var strich = function (v) { return v || "—"; };
+
+    var felder = {
+      subject: "Anmeldung – " + val("an_company"),
+      from_name: val("an_company"),
+      replyto: val("an_email"),
+      Betrieb: val("an_company"),
+      "E-Mail": val("an_email"),
+      Telefon: val("an_phone"),
+      Ansprechpartner: val("an_salutation") + " " + val("an_first") + " " + val("an_last"),
+      Adresse: val("an_street") + ", " + val("an_zip") + " " + val("an_city"),
+      "Unternehmensgröße": checked("an_sizeGroup"),
+      Zahlungsweise: checked("an_payGroup"),
+      Bankinstitut: strich(val("an_bank")),
+      Kontoinhaber: val("an_holder"),
+      IBAN: val("an_iban").replace(/\s+/g, ""),
+      BIC: val("an_bic").toUpperCase(),
+      Datenschutz: "zugestimmt",
+      Eingereicht: new Date().toLocaleString("de-DE")
     };
 
     submitBtn.disabled = true;
     var label = submitBtn.innerHTML;
     submitBtn.textContent = "Wird gesendet …";
 
-    fetch(ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error("HTTP " + res.status);
-      form.querySelector(".fields").querySelectorAll("fieldset").forEach(function (f) { f.hidden = true; });
+    var sicher = function (s) { return s.replace(/[^a-zA-Z0-9]+/g, "-").slice(0, 40); };
+
+    Promise.all([pads.sepa.toBlob(), pads.terms.toBlob()]).then(function (blobs) {
+      return window.GdsSubmit.senden(felder, [
+        { feld: "Unterschrift SEPA-Mandat", dateiname: "unterschrift-sepa-" + sicher(val("an_company")) + ".png", blob: blobs[0] },
+        { feld: "Unterschrift Anmeldung", dateiname: "unterschrift-anmeldung-" + sicher(val("an_company")) + ".png", blob: blobs[1] }
+      ]);
+    }).then(function () {
+      $$("fieldset", form).forEach(function (f) { f.hidden = true; });
       submitBtn.hidden = true;
       $("#anDone").hidden = false;
       $("#anDone").scrollIntoView({ behavior: "smooth", block: "center" });

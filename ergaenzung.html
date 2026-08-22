@@ -93,12 +93,7 @@
             bestehenden Teilnahme zu.</p>
         </div>
 
-        <!--
-          data-endpoint: wie beim Anmeldeformular. Leer = Absenden gesperrt,
-          die Unterschrift verlässt den Browser nicht. URL eintragen, sobald
-          das Ziel feststeht (Aufbau des JSON siehe ergaenzung.js).
-        -->
-        <form id="ergaenzungForm" data-endpoint="" novalidate>
+        <form id="ergaenzungForm" novalidate>
 
           <div class="fields">
 
@@ -260,6 +255,8 @@
 
 <div id="chat-slot" data-chat="gesichter-der-stadt"></div>
 
+<script src="config.js"></script>
+<script src="gds-submit.js"></script>
 <script src="gesichter.js"></script>
 <script src="signature.js"></script>
 <script src="ergaenzung.js"></script>

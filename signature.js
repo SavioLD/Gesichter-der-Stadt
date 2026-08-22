@@ -101,7 +101,12 @@
     return {
       box: box,
       isSigned: function () { return dirty; },
-      toDataURL: function () { return dirty ? canvas.toDataURL("image/png") : ""; }
+      toDataURL: function () { return dirty ? canvas.toDataURL("image/png") : ""; },
+      /* als echte PNG-Datei, damit sie als Anhang mitgehen kann */
+      toBlob: function () {
+        if (!dirty) return Promise.resolve(null);
+        return new Promise(function (auf) { canvas.toBlob(auf, "image/png"); });
+      }
     };
   };
 })();

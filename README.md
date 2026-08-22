@@ -64,29 +64,35 @@ Attribut `data-endpoint` des `<form>`:
 Hinweis erklärt das den Besuchern. Die Daten verlassen den Browser
 nicht. Den Aufbau des Bodys dokumentiert der Kopf von `anmeldung.js`.
 
-### Warum kein mailto
+### Versand über Web3Forms
 
-Alle Einreichungen sollen an `info@laendle-digital.com` gehen. Für das
-Aktions-Formular reicht dafür `mailto`. Für Anmeldung und Ergänzung
-nicht: die beiden Unterschriften ergeben zusammen rund **25.000
-Zeichen**, viele Systeme brechen eine `mailto`-Adresse aber schon bei
-etwa **2.000** ab. Dazu kommt, dass IBAN und Unterschrift nichts in
-einer unverschlüsselten E-Mail zu suchen haben.
+Alle drei Formulare senden über **Web3Forms** an die Adresse, die dort
+zum Access Key hinterlegt ist: `info@laendle-digital.com`.
 
-### Freischalten
+**Freischalten:** In `config.js` den Access Key eintragen –
 
-1. Bei einem Formular-Dienst ein Formular anlegen, das an
-   `info@laendle-digital.com` zustellt (z. B. Formspree – funktioniert
-   ohne eigenen Server und damit auch auf GitHub Pages).
-2. Die Endpunkt-URL in `anmeldung.html` und `ergaenzung.html` bei
-   `data-endpoint` eintragen.
-3. Fertig – Validierung, Unterschriften und Versand laufen dann.
+```js
+window.GDS_WEB3FORMS_KEY = "hier-der-schluessel";
+```
 
-Der `Accept: application/json`-Header ist bereits gesetzt, damit solche
-Dienste mit JSON antworten statt mit einer Weiterleitungsseite.
+Den Schlüssel gibt es auf web3forms.com, indem man dort
+`info@laendle-digital.com` einträgt; er kommt per E-Mail. Der Schlüssel
+ist öffentlich und darf im Quelltext stehen. **Solange der Wert leer
+ist, bleibt das Absenden in allen drei Formularen gesperrt** und ein
+Hinweis erklärt das den Besuchern.
+
+Unterschriften gehen als **PNG-Dateien** mit, nicht als Textblock.
+Per `mailto` wäre das nicht gegangen: zwei Unterschriften ergeben rund
+25.000 Zeichen, viele Systeme brechen eine `mailto`-Adresse aber schon
+bei etwa 2.000 ab.
+
+| Datei | Rolle |
+|---|---|
+| `config.js` | der Access Key – die einzige Stelle zum Ändern |
+| `gds-submit.js` | baut die Anfrage und schickt sie ab |
 
 Vor dem Einsatz mit Bankdaten: Auftragsverarbeitungsvertrag und
-Serverstandort des Dienstes prüfen.
+Serverstandort von Web3Forms prüfen.
 
 Die Teilnahmebedingungen stehen aufklappbar direkt über der
 verbindlichen Unterschrift.

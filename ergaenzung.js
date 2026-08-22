@@ -4,19 +4,9 @@
    Bestätigung der ergänzenden Bedingungen durch Betriebe, die
    bereits über das frühere Formular abgeschlossen haben.
 
-   Wie beim Anmeldeformular: Versand per POST an die URL aus
-   data-endpoint am <form>. Solange leer, bleibt das Absenden
-   gesperrt – die Unterschrift verlässt den Browser nicht.
-   Zustellung geht an info@laendle-digital.com.
-
-   Aufbau des POST-Bodys:
-     {
-       firmenname, email, unterzeichner,
-       unterschrift,   // PNG als data:-URL
-       zustimmung,     // true
-       fassung,        // Kennung der bestätigten Fassung
-       gesendetAm      // ISO-Zeitstempel
-     }
+   Versand über Web3Forms an info@laendle-digital.com; der Access
+   Key steht in config.js. Die Unterschrift geht als PNG-Datei mit.
+   Ohne hinterlegten Schlüssel bleibt das Absenden gesperrt.
 ============================================================ */
 (function () {
   "use strict";
@@ -27,7 +17,6 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
-  var ENDPOINT = (form.getAttribute("data-endpoint") || "").trim();
 
   /* Kennung der Fassung – bei inhaltlicher Änderung der Ziffern hochzählen,
      damit später nachvollziehbar bleibt, wem welcher Text vorlag. */
@@ -55,7 +44,7 @@
 
   var notice = $("#erNotice");
   var submitBtn = $("#erSubmit");
-  if (!ENDPOINT) {
+  if (!window.GdsSubmit || !window.GdsSubmit.bereit()) {
     notice.hidden = false;
     submitBtn.disabled = true;
     submitBtn.setAttribute("aria-describedby", "erNotice");
@@ -63,7 +52,7 @@
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    if (!ENDPOINT) return;
+    if (!window.GdsSubmit || !window.GdsSubmit.bereit()) return;
 
     var trap = $("#er_website");
     if (trap && trap.value) return;
@@ -99,26 +88,29 @@
       return;
     }
 
-    var payload = {
-      firmenname: val("er_company"),
-      email: val("er_email"),
-      unterzeichner: val("er_name"),
-      unterschrift: pad.toDataURL(),
-      zustimmung: true,
-      fassung: FASSUNG,
-      gesendetAm: new Date().toISOString()
+    var felder = {
+      subject: "Ergänzung bestätigt – " + val("er_company"),
+      from_name: val("er_company"),
+      replyto: val("er_email"),
+      Betrieb: val("er_company"),
+      "E-Mail": val("er_email"),
+      Unterzeichner: val("er_name"),
+      Zustimmung: "erteilt",
+      Fassung: FASSUNG,
+      Eingereicht: new Date().toLocaleString("de-DE")
     };
 
     submitBtn.disabled = true;
     var label = submitBtn.innerHTML;
     submitBtn.textContent = "Wird gesendet …";
 
-    fetch(ENDPOINT, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "Accept": "application/json" },
-      body: JSON.stringify(payload)
-    }).then(function (res) {
-      if (!res.ok) throw new Error("HTTP " + res.status);
+    var sicher = function (s) { return s.replace(/[^a-zA-Z0-9]+/g, "-").slice(0, 40); };
+
+    pad.toBlob().then(function (blob) {
+      return window.GdsSubmit.senden(felder, [
+        { feld: "Unterschrift", dateiname: "unterschrift-ergaenzung-" + sicher(val("er_company")) + ".png", blob: blob }
+      ]);
+    }).then(function () {
       $$("fieldset", form).forEach(function (f) { f.hidden = true; });
       submitBtn.hidden = true;
       $("#erDone").hidden = false;

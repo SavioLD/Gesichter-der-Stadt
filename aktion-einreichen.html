@@ -95,7 +95,7 @@
             zu platzieren.</p>
         </div>
 
-        <form id="aktionForm" data-mailto="info@laendle-digital.com" novalidate>
+        <form id="aktionForm" novalidate>
 
           <div class="fields">
 
@@ -181,19 +181,25 @@
               <p class="err-msg" data-for="af_privacy">Bitte bestätigen Sie die Datenschutzerklärung.</p>
             </div>
 
-            <button type="submit" class="btn btn--solid btn--block">
+            <div class="notice" id="aktionNotice" hidden role="status">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>
+              <span><strong>Noch nicht freigeschaltet.</strong> Der Versand ist noch nicht eingerichtet.
+                Schreiben Sie uns gerne direkt:
+                <a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a>.</span>
+            </div>
+
+            <button type="submit" class="btn btn--solid btn--block" id="aktionSubmit">
               Aktion einreichen
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
             </button>
 
             <div class="formdone" id="aktionDone" hidden role="status">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-              <span>Danke! Ihr E-Mail-Programm öffnet sich mit der fertigen Nachricht – bitte noch absenden.
-                Wir melden uns zeitnah bei Ihnen.</span>
+              <span>Danke! Ihre Aktion ist bei uns eingegangen. Wir melden uns zeitnah bei Ihnen.</span>
             </div>
 
-            <p class="formnote">Das Formular öffnet Ihr E-Mail-Programm mit allen Angaben. Klappt das nicht,
-              schreiben Sie uns direkt an
+            <p class="formnote">Ihre Einreichung geht direkt an unser Postfach. Klappt etwas nicht,
+              schreiben Sie uns an
               <a href="mailto:info@laendle-digital.com" style="color:var(--orange-dark)">info@laendle-digital.com</a>.</p>
 
           </div>
@@ -246,6 +252,8 @@
 <!-- Chatbot-Slot – siehe index.html -->
 <div id="chat-slot" data-chat="gesichter-der-stadt"></div>
 
+<script src="config.js"></script>
+<script src="gds-submit.js"></script>
 <script src="gesichter.js"></script>
 </body>
 </html>

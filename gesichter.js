@@ -48,14 +48,13 @@
   }
 
   /* ----------------------------------------------- Aktions-Formular ---
-     Ohne Backend: geprüft wird im Browser, versendet per E-Mail-Programm.
-     Sobald ein Endpunkt existiert, kann der mailto-Teil unten durch ein
-     fetch() auf die API ersetzt werden – die Validierung bleibt gleich.
+     Geprüft wird im Browser, versendet über Web3Forms an die Adresse,
+     die dort zum Access Key hinterlegt ist (info@laendle-digital.com).
+     Schlüssel siehe config.js.
   --------------------------------------------------------------------- */
   var form = $("#aktionForm");
   if (!form) return;
 
-  var MAIL_TO = form.getAttribute("data-mailto") || "info@laendle-digital.com";
   var emailOk = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); };
 
   var showErr = function (id, on) {
@@ -100,8 +99,19 @@
     });
   }
 
+  var notice = $("#aktionNotice");
+  var submitBtn = $("#aktionSubmit");
+  if (window.GdsSubmit && !window.GdsSubmit.bereit()) {
+    if (notice) notice.hidden = false;
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.setAttribute("aria-describedby", "aktionNotice");
+    }
+  }
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
+    if (!window.GdsSubmit || !window.GdsSubmit.bereit()) return;
 
     /* Honigtopf: von Menschen nie ausgefüllt */
     var trap = $("#af_website");
@@ -148,38 +158,38 @@
     }
 
     var dash = function (v) { return v || "—"; };
-    var body = [
-      "Neue Aktion für „Gesichter der Stadt\"",
-      "",
-      "Betrieb: " + val("af_company"),
-      "Ansprechpartner: " + dash(val("af_contact")),
-      "E-Mail: " + val("af_email"),
-      "Telefon: " + dash(val("af_phone")),
-      "",
-      "Art der Aktion: " + kind,
-      "Titel: " + val("af_title"),
-      "Zeitraum: " + dash(val("af_from")) + " bis " + dash(val("af_to")),
-      "Link: " + dash(val("af_link")),
-      "",
-      "Beschreibung:",
-      val("af_text")
-    ].join("\n");
+    var felder = {
+      subject: "Aktion einreichen – " + val("af_title") + " (" + val("af_company") + ")",
+      from_name: val("af_company"),
+      replyto: val("af_email"),
+      Betrieb: val("af_company"),
+      Ansprechpartner: dash(val("af_contact")),
+      "E-Mail": val("af_email"),
+      Telefon: dash(val("af_phone")),
+      "Art der Aktion": kind,
+      Titel: val("af_title"),
+      Zeitraum: dash(val("af_from")) + " bis " + dash(val("af_to")),
+      Link: dash(val("af_link")),
+      Beschreibung: val("af_text")
+    };
 
-    var subject = "Aktion einreichen – " + val("af_title") + " (" + val("af_company") + ")";
-    window.location.href = "mailto:" + MAIL_TO +
-      "?subject=" + encodeURIComponent(subject) +
-      "&body=" + encodeURIComponent(body);
+    var label = submitBtn ? submitBtn.innerHTML : "";
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Wird gesendet …"; }
 
-    var done = $("#aktionDone");
-    if (done) {
-      done.hidden = false;
-      done.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-    form.reset();
-    $$("#aktionKind .chip").forEach(function (x) {
-      x.classList.remove("is-on");
-      x.setAttribute("aria-pressed", "false");
+    window.GdsSubmit.senden(felder).then(function () {
+      $$("fieldset, .fields > .field, .grid-2", form).forEach(function (el) { el.hidden = true; });
+      if (submitBtn) submitBtn.hidden = true;
+      var done = $("#aktionDone");
+      if (done) { done.hidden = false; done.scrollIntoView({ behavior: "smooth", block: "center" }); }
+    }).catch(function () {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = label; }
+      if (notice) {
+        notice.hidden = false;
+        notice.querySelector("span").innerHTML =
+          "<strong>Das hat nicht geklappt.</strong> Bitte versuchen Sie es noch einmal oder schreiben Sie uns an " +
+          '<a href="mailto:info@laendle-digital.com">info@laendle-digital.com</a>.';
+        notice.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
     });
-    kind = "";
   });
 })();
