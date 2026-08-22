@@ -2,8 +2,8 @@
    Gesichter der Stadt – Betriebsprofil
 
    Teilnehmende Betriebe hinterlegen hier selbst Logo, Branche,
-   Kategorietext und Beschreibung. Bisher haben wir das
-   zusammengesucht – mit entsprechenden Fehlgriffen.
+   Kategorietext und Beschreibung. Daraus entstehen Kachel,
+   Beiträge und Video.
 
    Versand über Web3Forms an info@laendle-digital.com, Schlüssel
    siehe config.js. Das Logo geht als echte Datei mit.
