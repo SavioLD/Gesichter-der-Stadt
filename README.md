@@ -20,22 +20,67 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | `signature.js` | Unterschriftenfeld, von beiden Formularen genutzt |
 | `datenschutz.html` | Datenschutzerklärung |
 | `nutzungsbedingungen.html` | AGB für die Teilnahme |
-| `posts/` | 43 Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
+| `betriebe.json` | Alle teilnehmenden Betriebe: Name, Kategorietext, Logo, Instagram |
+| `posts/` | Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
+| `assets/logos/` | Die Originaldateien, aus denen die Grafiken gebaut werden |
+| `tools/` | Generatoren für Grafiken und Galerie |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
 
-## Betriebe ergänzen
+## Betriebsprofil einpflegen
 
-Die Post-Grafik (1080×1080 PNG) nach `posts/` legen und in `index.html`
-im Raster `.posts` eine Kachel ergänzen:
+Wenn über `betriebsprofil.html` ein Profil hereinkommt, sind es drei
+Schritte. `betriebe.json` ist die einzige Stelle, an der Daten gepflegt
+werden – `index.html` und die Grafiken werden daraus erzeugt.
 
-```html
-<figure class="post rv">
-  <img src="posts/name-des-betriebs.png" alt="Gesichter unserer Stadt: Name des Betriebs"
-       loading="lazy" width="1080" height="1080" />
-  <figcaption>Name des Betriebs</figcaption>
-</figure>
+**1. Logo ablegen.** Den Anhang aus der E-Mail nach `assets/logos/`
+speichern, benannt nach dem Betrieb, z. B.
+`assets/logos/wohn-schick-original.png`. Original lassen: nicht
+zuschneiden, nicht freistellen, nicht skalieren.
+
+**2. Eintrag in `betriebe.json` ergänzen.**
+
+```json
+{
+  "slug": "wohn-schick-gmbh-co-kg",
+  "name": "Wohn Schick GmbH + Co. KG",
+  "kategorie": "Wir erfüllen Ihre Wohnträume",
+  "logo": "assets/logos/wohn-schick-original.png",
+  "instagram": "wohn_schick",
+  "website": "https://www.wohn-schick.de/"
+}
 ```
+
+| Feld | Wirkung |
+|---|---|
+| `slug` | Dateiname der Grafik unter `posts/` – nur Kleinbuchstaben und Bindestriche |
+| `name` | Bildunterschrift und Name auf der Grafik. Rohtext, keine HTML-Entities |
+| `kategorie` | Der Text oben rechts auf der Grafik. Rund 30 Zeichen, sonst wird es eng |
+| `logo` | Pfad zur Originaldatei. Leer lassen, solange keine vorliegt |
+| `instagram` | Handle ohne `@`. Ist es gesetzt, wird die Kachel auf der Website anklickbar |
+| `website` | Nur zur Ablage, wird derzeit nicht ausgegeben |
+
+Ansprechpartner, E-Mail und Telefon gehören **nicht** hierher – das
+Repository ist öffentlich. Die stehen in der eingegangenen E-Mail.
+
+**3. Neu erzeugen.**
+
+```bash
+cd tools && npm install && npx playwright install chromium   # einmalig
+cd ..
+node tools/kachel.js wohn-schick-gmbh-co-kg   # Grafik neu bauen
+node tools/galerie.js                          # Kacheln in index.html neu schreiben
+```
+
+`kachel.js --alle` baut alle Grafiken neu, für die ein Logo hinterlegt
+ist. Das Logo wird proportional in einen Rahmen von 820 × 400 px
+eingepasst und dabei **nie vergrössert** – eine zu kleine Datei bleibt
+klein, statt unscharf aufgeblasen zu werden. Ist der Kategorietext zu
+lang oder das Logo zu klein, sagt das Werkzeug es beim Lauf.
+
+`galerie.js` schreibt den Block zwischen `<!-- betriebe:start -->` und
+`<!-- betriebe:ende -->` in `index.html` neu und zieht die Zahl im Text
+über dem Raster mit. Von Hand muss dort nichts mehr geändert werden.
 
 Die Bildunterschrift ist nur für Screenreader sichtbar – der Name steht
 bereits in der Grafik.
@@ -134,12 +179,9 @@ Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
 
 ## Aktion einreichen (`aktion-einreichen.html`)
 
-`aktion-einreichen.html` läuft ohne Backend: Die Pflichtfelder werden im
-Browser geprüft, danach öffnet sich das E-Mail-Programm mit der fertigen
-Nachricht. Empfänger steuert das Attribut `data-mailto` am `<form>`.
-
-Soll später ein echter Endpunkt dran, ersetzt man in `gesichter.js` den
-`mailto`-Block durch ein `fetch()` – die Validierung bleibt unverändert.
+Die Pflichtfelder werden im Browser geprüft, danach geht die Einreichung
+wie bei den anderen Formularen über Web3Forms an
+`info@laendle-digital.com`. Die Logik steht in `gesichter.js`.
 
 Gegen Bots ist ein unsichtbares Honigtopf-Feld eingebaut.
 
@@ -157,9 +199,12 @@ python3 -m http.server 8000
   auskommentiert – Werte eintragen und einkommentieren.
 - **Handelsregisternummer**: gehört ins Impressum, sobald sie vorliegt.
 
-- **Teilnehmerzahl**: Die „43" in `index.html` ist fest hinterlegt und
-  muss bei neuen Betrieben mitgezogen werden – an zwei Stellen: im
-  Zähler unter „Vorteile" und im Text über dem Raster.
+- **Teilnehmerzahl**: Den Text über dem Raster zieht `tools/galerie.js`
+  automatisch mit. Der Zähler unter „Vorteile" steht weiterhin fest in
+  `index.html` und muss von Hand nachgeführt werden.
+- **Logos**: Erst vier Betriebe haben ein eigenes Logo hinterlegt. Für
+  die übrigen stammt die Grafik noch aus der ersten Runde. Welche das
+  sind, zeigt `node tools/galerie.js` am Ende an.
 - **Chatbot**: `<div id="chat-slot">` liegt auf allen Seiten bereit,
   die Skript-Einbindung ist auskommentiert.
 

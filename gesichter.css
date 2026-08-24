@@ -379,6 +379,11 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
 }
 .post img{width:100%;height:100%;object-fit:cover;display:block}
 
+/* Kacheln mit hinterlegtem Instagram-Account sind anklickbar */
+.post__link{display:block;width:100%;height:100%}
+.post__link:focus-visible{outline:3px solid var(--orange);outline-offset:-3px}
+.post--link:hover{transform:translateY(-3px);border-color:var(--orange);box-shadow:0 8px 22px rgba(43,38,34,.14)}
+
 /* Name nur für Screenreader – er steht bereits in der Grafik */
 .post figcaption{
   position:absolute;width:1px;height:1px;padding:0;margin:-1px;

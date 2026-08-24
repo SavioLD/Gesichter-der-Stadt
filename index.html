@@ -234,7 +234,9 @@
         <p class="lede">43 Betriebe aus Rottweil sind dabei – jeden Monat kommen neue dazu.</p>
       </div>
 
+      <!-- Kacheln werden aus betriebe.json erzeugt: node tools/galerie.js -->
       <div class="posts">
+        <!-- betriebe:start -->
         <figure class="post rv">
           <img src="posts/b2-biopur-gmbh.png" alt="Gesichter unserer Stadt: b2 biopur GmbH" loading="lazy" width="1080" height="1080" />
           <figcaption>b2 biopur GmbH</figcaption>
@@ -403,10 +405,12 @@
           <img src="posts/vulpiani-pastabar.png" alt="Gesichter unserer Stadt: Vulpiani Pastabar" loading="lazy" width="1080" height="1080" />
           <figcaption>Vulpiani Pastabar</figcaption>
         </figure>
-        <figure class="post rv">
-          <img src="posts/wohn-schick-gmbh-co-kg.png" alt="Gesichter unserer Stadt: Wohn Schick GmbH + Co. KG" loading="lazy" width="1080" height="1080" />
+        <figure class="post post--link rv">
+          <a class="post__link" href="https://www.instagram.com/wohn_schick/"
+             target="_blank" rel="noopener" aria-label="Wohn Schick GmbH + Co. KG auf Instagram"><img src="posts/wohn-schick-gmbh-co-kg.png" alt="Gesichter unserer Stadt: Wohn Schick GmbH + Co. KG" loading="lazy" width="1080" height="1080" /></a>
           <figcaption>Wohn Schick GmbH + Co. KG</figcaption>
         </figure>
+        <!-- betriebe:ende -->
         <a class="post post--cta rv" href="#mitmachen">
           <span class="post__plus" aria-hidden="true">+</span>
           <span class="post__cta-text">Ihr Betrieb<br /><span>Jetzt anmelden</span></span>
