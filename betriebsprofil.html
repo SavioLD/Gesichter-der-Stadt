@@ -91,6 +91,18 @@
             <fieldset class="fset">
               <legend>Betrieb und Kontakt</legend>
 
+              <!-- Wird aus betriebe.json gefüllt, damit die Angaben der
+                   richtigen Kachel zugeordnet werden. -->
+              <div class="field" id="bp_pickerField" hidden>
+                <label for="bp_picker">Ihr Betrieb <span class="req">*</span></label>
+                <select class="input" id="bp_picker" name="betrieb_auswahl">
+                  <option value="">Bitte wählen …</option>
+                </select>
+                <p class="fset__hint">Wählen Sie Ihren Betrieb aus der Liste, damit Ihre Angaben auf die
+                  richtige Kachel gehen.</p>
+                <p class="err-msg" data-for="bp_picker">Bitte Ihren Betrieb wählen.</p>
+              </div>
+
               <div class="field">
                 <label for="bp_company">Firmenname <span class="req">*</span></label>
                 <input class="input" id="bp_company" name="firmenname" autocomplete="organization" />

@@ -1,0 +1,21 @@
+name = "gesichter-annahme"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+[vars]
+# Repository, in das geschrieben wird
+REPO = "SavioLD/Gesichter-der-Stadt"
+
+# Zielzweig
+ZWEIG = "main"
+
+# "pr"     – Einreichung landet als Pull Request und wartet auf einen Klick
+# "direkt" – Einreichung geht sofort auf main und damit live
+MODUS = "pr"
+
+# Von welcher Seite Einreichungen angenommen werden.
+# "*" nimmt von überall an – für den Testlauf in Ordnung, danach eintragen.
+HERKUNFT = "https://saviold.github.io"
+
+# Das GitHub-Token wird NICHT hier eingetragen, sondern als Secret:
+#   npx wrangler secret put GITHUB_TOKEN

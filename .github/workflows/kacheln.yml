@@ -1,0 +1,55 @@
+name: Kacheln und Galerie bauen
+
+# Läuft, sobald sich ein Betrieb oder ein Logo ändert – egal ob das von
+# Hand passiert ist oder über das Betriebsprofil-Formular hereinkam.
+on:
+  push:
+    branches: [main]
+    paths:
+      - betriebe.json
+      - "assets/logos/**"
+      - "tools/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kacheln
+  cancel-in-progress: false
+
+jobs:
+  bauen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: tools/package.json
+
+      - name: Werkzeuge installieren
+        working-directory: tools
+        run: |
+          npm install --no-audit --no-fund
+          npx playwright install --with-deps chromium
+
+      - name: Kacheln bauen
+        run: node tools/kachel.js --alle
+
+      - name: Galerie schreiben
+        run: node tools/galerie.js
+
+      - name: Änderungen übernehmen
+        run: |
+          if git diff --quiet -- posts index.html; then
+            echo "Nichts zu übernehmen."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add posts index.html
+          git commit -m "Rebuild the tiles and the gallery"
+          git push

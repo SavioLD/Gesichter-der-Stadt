@@ -16,3 +16,16 @@
    erlaubt nur das Zustellen an die hinterlegte Adresse.
 ============================================================ */
 window.GDS_WEB3FORMS_KEY = "bf808e37-6e67-475d-b83e-68e95ab03c54";
+
+/* ============================================================
+   Automatische Übernahme der Betriebsprofile
+
+   Adresse der Annahmestelle (Cloudflare Worker, Einrichtung siehe
+   automatik/README.md). Ist sie eingetragen, legt ein eingereichtes
+   Profil Logo und Eintrag selbst im Repository ab – Kachel und
+   Galerie baut danach die GitHub Action.
+
+   Solange der Wert leer ist, ändert sich nichts: Das Profil kommt
+   weiterhin per E-Mail und wird von Hand eingepflegt.
+============================================================ */
+window.GDS_AUTOMATIK_URL = "";

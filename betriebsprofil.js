@@ -7,6 +7,13 @@
 
    Versand über Web3Forms an info@laendle-digital.com, Schlüssel
    siehe config.js. Das Logo geht als echte Datei mit.
+
+   Ist in config.js zusätzlich GDS_AUTOMATIK_URL gesetzt, geht das
+   Profil parallel an die Annahmestelle. Die legt Logo und Eintrag
+   selbst im Repository ab, die Kachel baut danach die GitHub
+   Action. Die E-Mail bleibt davon unberührt – sie enthält auch die
+   Kontaktdaten, die bewusst nicht ins öffentliche Repository
+   gehören.
 ============================================================ */
 (function () {
   "use strict";
@@ -48,6 +55,38 @@
   var privacy = $("#bp_privacy");
   privacy.addEventListener("change", function () { if (privacy.checked) showErr("bp_privacy", false); });
 
+  /* Betriebsauswahl aus betriebe.json füllen. Klappt das nicht,
+     bleibt das Feld verborgen und der Firmenname allein zählt. */
+  var picker = $("#bp_picker");
+  var pickerFeld = $("#bp_pickerField");
+  var firma = $("#bp_company");
+
+  fetch("betriebe.json", { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (liste) {
+      if (!Array.isArray(liste) || !liste.length) return;
+      liste.slice().sort(function (a, b) { return a.name.localeCompare(b.name, "de"); })
+        .forEach(function (b) {
+          var o = document.createElement("option");
+          o.value = b.slug;
+          o.textContent = b.name;
+          picker.appendChild(o);
+        });
+      var neu = document.createElement("option");
+      neu.value = "__neu";
+      neu.textContent = "Mein Betrieb ist noch nicht dabei";
+      picker.appendChild(neu);
+      pickerFeld.hidden = false;
+
+      /* Auswahl trägt den Namen gleich ins Firmenfeld ein. */
+      picker.addEventListener("change", function () {
+        showErr("bp_picker", false);
+        var treffer = liste.filter(function (b) { return b.slug === picker.value; })[0];
+        if (treffer && !firma.value.trim()) { firma.value = treffer.name; showErr("bp_company", false); }
+      });
+    })
+    .catch(function () { /* ohne Liste läuft das Formular wie bisher */ });
+
   var notice = $("#bpNotice");
   var submitBtn = $("#bpSubmit");
   if (!window.GdsSubmit || !window.GdsSubmit.bereit()) {
@@ -87,6 +126,9 @@
       showErr("bp_logo", false);
     }
 
+    if (!pickerFeld.hidden && !picker.value) { showErr("bp_picker", true); ok = false; if (!firstBad) firstBad = picker; }
+    else showErr("bp_picker", false);
+
     if (!privacy.checked) { showErr("bp_privacy", true); ok = false; if (!firstBad) firstBad = privacy; }
     else showErr("bp_privacy", false);
 
@@ -122,8 +164,27 @@
     var sicher = function (s) { return s.replace(/[^a-zA-Z0-9]+/g, "-").slice(0, 40); };
     var endung = (datei.name.match(/\.[a-zA-Z0-9]+$/) || [".png"])[0];
 
-    window.GdsSubmit.senden(felder, [
-      { feld: "Logo", dateiname: "logo-" + sicher(val("bp_company")) + endung, blob: datei }
+    /* Parallel an die Annahmestelle. Schlägt das fehl, bleibt die
+       E-Mail trotzdem gültig – die Einreichung ist nicht verloren. */
+    var automatik = Promise.resolve(null);
+    if (window.GDS_AUTOMATIK_URL) {
+      var paket = new FormData();
+      paket.append("slug", picker && picker.value !== "__neu" ? picker.value : "");
+      paket.append("betrieb", val("bp_company"));
+      paket.append("kategorie", val("bp_label"));
+      paket.append("instagram", val("bp_insta"));
+      paket.append("website", val("bp_web"));
+      paket.append("logo", datei, datei.name);
+      automatik = fetch(window.GDS_AUTOMATIK_URL, { method: "POST", body: paket })
+        .then(function (r) { return r.json(); })
+        .catch(function () { return null; });
+    }
+
+    Promise.all([
+      window.GdsSubmit.senden(felder, [
+        { feld: "Logo", dateiname: "logo-" + sicher(val("bp_company")) + endung, blob: datei }
+      ]),
+      automatik
     ]).then(function () {
       $$("fieldset", form).forEach(function (f) { f.hidden = true; });
       $$(".fields > .field", form).forEach(function (f) { f.hidden = true; });
