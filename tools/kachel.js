@@ -41,7 +41,7 @@ const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /* Vorlage nach dem Vorbild der bestehenden Beiträge */
-function vorlage({ logo, name, kategorie, breite, hoehe }) {
+function vorlage({ logo, name, kategorie, adresse, breite, hoehe }) {
   return `<!doctype html><meta charset="utf-8"><style>
 ${schriftCss}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -61,13 +61,14 @@ body{width:1080px;height:1080px;background:#fbf8f2;position:relative;overflow:hi
 .band{position:absolute;left:0;right:0;bottom:0;height:140px;background:#d5782a;
       border-radius:50% 50% 0 0 / 26px 26px 0 0}
 .band span{position:absolute;left:0;right:0;bottom:44px;text-align:center;color:#fff;
-           font-weight:700;font-size:15px;letter-spacing:.26em;text-transform:uppercase}
+           font-weight:700;font-size:15px;letter-spacing:.26em;text-transform:uppercase;
+           padding:0 60px;white-space:nowrap;overflow:hidden}
 </style>
 <div class="eyebrow left" id="links">Gesichter unserer Stadt</div>
 <div class="eyebrow right" id="rechts">${esc(kategorie)}</div>
 <div class="logo"><img id="marke" src="${logo}"></div>
 <div class="name">${esc(name)}</div>
-<div class="band"><span>Rottweil</span></div>`;
+<div class="band"><span id="fuss">${esc(adresse || "Rottweil")}</span></div>`;
 }
 
 async function masse(seite, quelle) {
@@ -120,7 +121,8 @@ function einpassen(b, h) {
     const roh = await masse(seite, quelle);
     const { breite, hoehe, faktor } = einpassen(roh.b, roh.h);
 
-    await seite.setContent(vorlage({ logo: quelle, name: b.name, kategorie: b.kategorie, breite, hoehe }),
+    await seite.setContent(
+      vorlage({ logo: quelle, name: b.name, kategorie: b.kategorie, adresse: b.adresse, breite, hoehe }),
       { waitUntil: "load" });
     await seite.evaluate(() => document.fonts.ready);
     await seite.waitForTimeout(300);
@@ -134,6 +136,15 @@ function einpassen(b, h) {
     if (kollision.ueberlappt)
       console.warn(`  ! ${b.slug}: Kategorietext ist zu lang – nur ${kollision.luecke}px Luft ` +
                    `zur linken Zeile. Bitte in betriebe.json kürzen.`);
+
+    /* Die Adresse im Bogen darf nicht abgeschnitten werden. */
+    const fuss = await seite.evaluate(() => {
+      const s = document.getElementById("fuss");
+      return { passt: s.scrollWidth <= s.clientWidth, noetig: s.scrollWidth, platz: s.clientWidth };
+    });
+    if (!fuss.passt)
+      console.warn(`  ! ${b.slug}: Adresse braucht ${fuss.noetig}px, es sind ${fuss.platz}px da – ` +
+                   `sie wird abgeschnitten. Bitte in betriebe.json kürzen.`);
     if (faktor < 0.999)
       console.log(`  · ${b.slug}: Logo ${roh.b}x${roh.h} auf ${breite}x${hoehe} verkleinert`);
     else if (breite < 420)

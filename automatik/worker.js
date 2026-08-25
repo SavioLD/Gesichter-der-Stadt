@@ -40,6 +40,8 @@ export default {
 
     const name = (daten.get("betrieb") || "").toString().trim();
     const kategorie = (daten.get("kategorie") || "").toString().trim();
+    const adresse = (daten.get("adresse") || "").toString().trim();
+    const beschreibung = (daten.get("beschreibung") || "").toString().trim();
     const instagram = (daten.get("instagram") || "").toString().trim().replace(/^@/, "");
     const website = (daten.get("website") || "").toString().trim();
     const logo = daten.get("logo");
@@ -83,10 +85,13 @@ export default {
         `Add the logo ${name} supplied`,
         zweig);
 
-      const eintrag = liste.find((b) => b.slug === slug) || { slug, name, kategorie: "", logo: "", instagram: "", website: "" };
+      const eintrag = liste.find((b) => b.slug === slug) ||
+        { slug, name, kategorie: "", adresse: "", beschreibung: "", logo: "", instagram: "", website: "" };
       eintrag.name = eintrag.name || name;
       eintrag.kategorie = kategorie;
       eintrag.logo = logoPfad;
+      if (adresse) eintrag.adresse = adresse;
+      if (beschreibung) eintrag.beschreibung = beschreibung;
       if (instagram) eintrag.instagram = instagram;
       if (website) eintrag.website = website;
       if (neu) liste.push(eintrag);
@@ -107,6 +112,7 @@ export default {
           ``,
           `- **Betrieb:** ${name}`,
           `- **Text auf der Grafik:** ${kategorie}`,
+          adresse ? `- **Wo zu finden:** ${adresse}` : null,
           instagram ? `- **Instagram:** @${instagram}` : null,
           website ? `- **Website:** ${website}` : null,
           `- **Logo:** \`${logoPfad}\``,

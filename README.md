@@ -56,9 +56,17 @@ zuschneiden, nicht freistellen, nicht skalieren.
 | `slug` | Dateiname der Grafik unter `posts/` – nur Kleinbuchstaben und Bindestriche |
 | `name` | Bildunterschrift und Name auf der Grafik. Rohtext, keine HTML-Entities |
 | `kategorie` | Der Text oben rechts auf der Grafik. Rund 30 Zeichen, sonst wird es eng |
+| `adresse` | Die Zeile unten im Bogen. Ist sie leer, steht dort „Rottweil" |
+| `beschreibung` | Aus dem Formular. Noch nicht auf der Website ausgegeben |
 | `logo` | Pfad zur Originaldatei. Leer lassen, solange keine vorliegt |
 | `instagram` | Handle ohne `@`. Ist es gesetzt, wird die Kachel auf der Website anklickbar |
-| `website` | Nur zur Ablage, wird derzeit nicht ausgegeben |
+| `website` | Aus dem Formular. Noch nicht auf der Website ausgegeben |
+
+Die Adresse ersetzt das frühere „Rottweil" unten auf der Kachel – dass die
+Betriebe in Rottweil sind, weiss der Betrachter ohnehin, die Lage ist die
+nützlichere Information. „Rottweil" muss also nicht mit hinein, und
+78628 auch nicht. Passt der Text nicht in den Bogen, sagt `kachel.js`
+es beim Lauf.
 
 Ansprechpartner, E-Mail und Telefon gehören **nicht** hierher – das
 Repository ist öffentlich. Die stehen in der eingegangenen E-Mail.
@@ -84,6 +92,23 @@ lang oder das Logo zu klein, sagt das Werkzeug es beim Lauf.
 
 Die Bildunterschrift ist nur für Screenreader sichtbar – der Name steht
 bereits in der Grafik.
+
+### Herkunft der aktuellen Logos
+
+Die Logos unter `assets/logos/` sind bei den meisten Betrieben aus der
+jeweils bestehenden Kachel herausgelöst, nicht vom Betrieb geliefert.
+Sie sind damit nicht besser als vorher – es sind dieselben Pixel, nur
+ohne den weissen Kasten drumherum. Sobald ein Betrieb seine
+Originaldatei über `betriebsprofil.html` schickt, ersetzt sie diese
+Zwischenlösung, und `kachel.js` baut die Grafik in voller Qualität neu.
+
+Welche Betriebe noch eine ordentliche Datei brauchen, verrät der Lauf
+von `kachel.js --alle`: Er warnt bei jedem Logo unter 420 px Breite.
+
+### Herkunft der Adressen
+
+Die Adressen sind recherchiert, nicht von den Betrieben bestätigt.
+Kommt über das Betriebsprofil eine eigene Angabe herein, gewinnt die.
 
 ## Design
 

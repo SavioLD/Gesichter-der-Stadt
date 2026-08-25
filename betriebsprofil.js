@@ -110,7 +110,7 @@
       if (!firstBad) firstBad = document.getElementById(key);
     };
 
-    ["bp_company", "bp_contact", "bp_branche", "bp_label", "bp_text"].forEach(function (id) {
+    ["bp_company", "bp_contact", "bp_branche", "bp_label", "bp_adresse", "bp_text"].forEach(function (id) {
       if (!val(id)) fail(id); else showErr(id, false);
     });
     if (!emailOk(val("bp_email"))) fail("bp_email"); else showErr("bp_email", false);
@@ -151,6 +151,7 @@
       Telefon: strich(val("bp_phone")),
       Branche: val("bp_branche"),
       "Text auf der Grafik": val("bp_label"),
+      "Wo zu finden": val("bp_adresse"),
       Beschreibung: val("bp_text"),
       Instagram: strich(val("bp_insta")),
       Website: strich(val("bp_web")),
@@ -172,6 +173,8 @@
       paket.append("slug", picker && picker.value !== "__neu" ? picker.value : "");
       paket.append("betrieb", val("bp_company"));
       paket.append("kategorie", val("bp_label"));
+      paket.append("adresse", val("bp_adresse"));
+      paket.append("beschreibung", val("bp_text"));
       paket.append("instagram", val("bp_insta"));
       paket.append("website", val("bp_web"));
       paket.append("logo", datei, datei.name);
