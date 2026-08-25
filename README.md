@@ -185,6 +185,38 @@ wie bei den anderen Formularen über Web3Forms an
 
 Gegen Bots ist ein unsichtbares Honigtopf-Feld eingebaut.
 
+## Mobil
+
+Die Seite ist auf das Telefon hin gebaut, nicht nur darauf verkleinert.
+Im Stylesheet stehen die Regeln dafür gesammelt am Ende, getrennt nach
+zwei Fragen:
+
+- `@media (pointer:coarse)` – wird mit dem Finger bedient? Dann sind alle
+  Tippziele mindestens 44 × 44 px, erreicht über Innenabstand, damit sich
+  am Erscheinungsbild nichts ändert.
+- `@media (max-width:…)` – wie viel Platz ist da? Das steuert das Layout.
+
+Ein paar Punkte, die leicht wieder kaputtgehen:
+
+- **Rasterspuren** stehen auf `minmax(0,1fr)`, nicht auf `1fr`. Ein `1fr`
+  schrumpft nicht unter die Breite des längsten Wortes – ein einziges
+  Kompositum wie „Teilnahmebedingungen" zieht sonst die ganze Seite
+  seitlich auf.
+- **`padding-block`, nicht `padding`**, bei allem, was zusätzlich die
+  Klasse `.shell` trägt. Die Kurzform überschreibt den seitlichen
+  Abstand, und der Text läuft bis an den Bildschirmrand.
+- **Verweise mitten im Satz** bekommen `padding-block`. Bei einem
+  Inline-Element vergrössert das die Trefferfläche, ohne die Zeilenhöhe
+  zu verändern. Ausgenommen ist die Zustimmungszeile: dort stehen die
+  Verweise im Etikett des Ankreuzfelds, und grössere Trefferflächen
+  führten nur dazu, dass man beim Ankreuzen aus dem Formular navigiert.
+- **Unterschriftenfelder** brauchen `touch-action:none`, sonst blättert
+  die Seite weg, während man unterschreibt.
+
+Geprüft wird mit dem Skript unter `tools/` nicht – die Prüfung lief
+einmalig über Playwright bei 320, 375 und 430 px auf allen sieben
+Seiten: kein seitlicher Überlauf, keine zu kleinen Tippziele.
+
 ## Lokal ansehen
 
 ```bash

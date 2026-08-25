@@ -47,7 +47,16 @@ body{
 img{max-width:100%;display:block}
 a{color:inherit}
 
-.shell{width:100%;max-width:var(--shell);margin-inline:auto;padding-inline:var(--pad)}
+/* Der Innenabstand berücksichtigt die abgerundeten Ecken und die
+   Kameraaussparung moderner Telefone im Querformat. */
+.shell{
+  width:100%;max-width:var(--shell);margin-inline:auto;
+  padding-left:max(var(--pad),env(safe-area-inset-left));
+  padding-right:max(var(--pad),env(safe-area-inset-right));
+}
+
+/* Sprungmarken dürfen nicht unter der klebenden Kopfzeile landen. */
+section[id],[id].doc__body,.doc__body h2[id]{scroll-margin-top:84px}
 
 .skip{
   position:absolute;left:-9999px;top:0;z-index:100;
@@ -66,13 +75,16 @@ a{color:inherit}
 .eyebrow{
   font-family:var(--font-display);
   font-weight:700;
-  font-size:clamp(.68rem,1.5vw,.78rem);
+  font-size:clamp(.78rem,1.5vw,.82rem);
   letter-spacing:.24em;
   text-transform:uppercase;
   color:var(--orange);
   margin:0;
+  line-height:1.45;
   display:inline-flex;
-  align-items:center;
+  /* Bricht die Zeile um – auf dem Telefon der Normalfall –, soll der Punkt
+     neben der ersten Zeile stehen, nicht in der Mitte des Blocks. */
+  align-items:flex-start;
   gap:.7em;
 }
 .eyebrow--dot::before{
@@ -80,6 +92,7 @@ a{color:inherit}
   width:.45em;height:.45em;border-radius:50%;
   background:currentColor;
   flex:none;
+  margin-top:.5em;
 }
 .eyebrow--light{color:#fff}
 .eyebrow--ink{color:var(--ink)}
@@ -475,8 +488,8 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
   margin-top:calc(var(--arc) * -1);
   padding:calc(var(--arc) + clamp(30px,5vw,60px)) 0 clamp(56px,9vw,110px);
 }
-.formgrid{display:grid;gap:clamp(26px,4vw,52px);grid-template-columns:1fr}
-@media (min-width:960px){.formgrid{grid-template-columns:1fr 1.35fr;align-items:start}}
+.formgrid{display:grid;gap:clamp(26px,4vw,52px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:960px){.formgrid{grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);align-items:start}}
 
 .formside h2{margin:.28em 0 .5em}
 .formside .steps{list-style:none;margin:clamp(20px,3vw,30px) 0 0;padding:0;display:grid;gap:18px;counter-reset:s}
@@ -496,12 +509,14 @@ h3{font-size:clamp(1.25rem,2.6vw,1.6rem)}
 .formcard__head h3{margin:0 0 .4em}
 .formcard__head p{margin:0;color:var(--ink-2);font-size:.98rem}
 
-.fields{display:grid;gap:clamp(16px,2.4vw,22px)}
-.grid-2{display:grid;gap:clamp(16px,2.4vw,22px);grid-template-columns:1fr}
-@media (min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+.fields{display:grid;gap:clamp(16px,2.4vw,22px);grid-template-columns:minmax(0,1fr)}
+.grid-2{display:grid;gap:clamp(16px,2.4vw,22px);grid-template-columns:minmax(0,1fr)}
+@media (min-width:560px){.grid-2{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 
-.field{display:grid;gap:8px}
-.field label:not(.check),.flabel{
+.field{display:grid;gap:8px;grid-template-columns:minmax(0,1fr)}
+/* Die Datei-Auswahl ist selbst ein <label>. Ohne Ausnahme würde der
+   Dateiname in Grossbuchstaben erscheinen – „LOGO-WOHN-SCHICK.PNG". */
+.field label:not(.check):not(.filefield),.flabel{
   font-family:var(--font-display);font-weight:700;
   font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;
 }
@@ -553,7 +568,7 @@ textarea.input{resize:vertical;min-height:8em;line-height:1.55}
 
 /* --------------------------------------------------- Anmeldeformular --- */
 
-.fset{border:0;margin:0;padding:0;display:grid;gap:clamp(14px,2.2vw,20px)}
+.fset{border:0;margin:0;padding:0;display:grid;gap:clamp(14px,2.2vw,20px);grid-template-columns:minmax(0,1fr)}
 .fset+.fset{border-top:1px solid var(--line);padding-top:clamp(22px,3.2vw,30px)}
 .fset legend{
   padding:0;margin-bottom:2px;
@@ -569,7 +584,7 @@ select.input{appearance:none;cursor:pointer;
   background-repeat:no-repeat;background-position:right .8em center;background-size:1.1em;padding-right:2.6em}
 
 /* Auswahlkarten für Größe und Zahlungsweise */
-.opts{display:grid;gap:10px}
+.opts{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
 .opt{display:block;cursor:pointer}
 .opt input{position:absolute;opacity:0;width:0;height:0}
 .opt__body{
@@ -718,7 +733,7 @@ select.input{appearance:none;cursor:pointer;
   font-family:var(--font-display);font-weight:700;
   font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;
 }
-.filefield__name{font-size:.92rem;color:var(--ink-2);overflow-wrap:anywhere}
+.filefield__name{font-family:var(--font-text);font-weight:400;font-size:.92rem;letter-spacing:0;text-transform:none;color:var(--ink-2);overflow-wrap:anywhere}
 .field.err .filefield,.filefield.err{border-color:#c0392b;background:#fdf2f0}
 
 /* Honigtopf gegen Bots – für Menschen unsichtbar */
@@ -732,7 +747,7 @@ select.input{appearance:none;cursor:pointer;
   margin-top:calc(var(--arc) * -1);
   padding:calc(var(--arc) + clamp(30px,5vw,56px)) 0 clamp(56px,9vw,110px);
 }
-.doc__grid{display:grid;gap:clamp(28px,4vw,56px);grid-template-columns:1fr;align-items:start}
+.doc__grid{display:grid;gap:clamp(28px,4vw,56px);grid-template-columns:minmax(0,1fr);align-items:start}
 @media (min-width:960px){.doc__grid{grid-template-columns:minmax(0,15em) minmax(0,1fr)}}
 
 .doc__toc{position:sticky;top:90px}
@@ -773,14 +788,17 @@ select.input{appearance:none;cursor:pointer;
 /* -------------------------------------------------------------- Footer --- */
 
 .foot{background:var(--ink);color:rgba(255,255,255,.72);padding:clamp(40px,6vw,70px) 0 0}
-.foot__in{display:grid;gap:30px;grid-template-columns:1fr}
+.foot__in{display:grid;gap:30px;grid-template-columns:minmax(0,1fr)}
 @media (min-width:760px){.foot__in{grid-template-columns:1.4fr 1fr 1fr}}
 .foot h3{color:#fff;font-size:.8rem;letter-spacing:.22em;text-transform:uppercase;margin:0 0 14px}
 .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
 .foot a{color:rgba(255,255,255,.72);text-decoration:none}
 .foot a:hover{color:var(--orange-tint)}
 .foot__claim{font-family:var(--font-display);font-weight:700;font-size:clamp(1.4rem,3vw,1.9rem);color:#fff;line-height:1.15;margin:0 0 12px}
-.foot__bar{margin-top:clamp(34px,5vw,56px);border-top:1px solid rgba(255,255,255,.14);padding:20px 0;font-size:.85rem}
+/* padding-block, nicht padding: die Kurzform würde den seitlichen
+   Abstand von .shell überschreiben und die Zeile bis an den
+   Bildschirmrand laufen lassen. */
+.foot__bar{margin-top:clamp(34px,5vw,56px);border-top:1px solid rgba(255,255,255,.14);padding-block:20px;font-size:.85rem}
 .foot__bar a{text-decoration:underline;text-underline-offset:3px}
 
 .social{display:flex;gap:11px;margin-top:18px}
@@ -809,4 +827,144 @@ select.input{appearance:none;cursor:pointer;
 @media (prefers-reduced-motion:reduce){
   .anim .rv{opacity:1;transform:none;transition:none}
   .btn:hover,a.card:hover{transform:none}
+}
+
+/* ==========================================================================
+   MOBIL
+
+   Zwei Fragen werden hier getrennt beantwortet:
+
+   (pointer:coarse) – wird mit dem Finger bedient? Dann müssen Tippziele
+   gross genug sein, unabhängig davon, wie breit der Bildschirm ist. Auch
+   ein Tablet im Querformat wird angetippt.
+
+   (max-width:…)    – wie viel Platz ist da? Das steuert das Layout.
+   ========================================================================== */
+
+/* ------------------------------------------------- Finger statt Maus --- */
+@media (pointer:coarse){
+
+  /* Apples Empfehlung sind 44 px Kantenlänge. Danach richtet sich alles
+     Folgende – erreicht wird das über Innenabstand, damit sich am
+     Erscheinungsbild nichts ändert. */
+
+  .top__brand{padding:13px 0}
+  .burger{height:44px;padding:11px 8px}
+
+  .foot ul{gap:0}
+  .foot ul a{display:block;padding:12px 0}
+  .foot__bar a{display:inline-block;padding:11px 0}
+  .social a{min-height:44px}
+
+  .doc__toc a{padding:13px 0}
+
+  /* Verweise mitten im Satz können nicht 44 px hoch werden, ohne den
+     Zeilenfall zu zerreissen. Innenabstand an einem Inline-Element
+     vergrössert aber die Trefferfläche, ohne die Zeilenhöhe zu ändern –
+     genau das, was hier gebraucht wird. */
+  .doc__body p a,.doc__body li a,.doc__address a,
+  .notice a,.callout a,.fset__hint a,.formside__claim a,
+  .formnote a,.terms a,.lede a,.step a,.bene__item a{padding-block:13px}
+  .formnote a{padding-block:14px}
+
+  /* Ausnahme: In der Zustimmungszeile stehen die Verweise mitten im
+     Etikett des Ankreuzfelds. Eine grössere Trefferfläche würde hier
+     nur dazu führen, dass man beim Ankreuzen aus dem Formular
+     navigiert. Das Etikett selbst ist gross genug. */
+  .check a{padding-block:0}
+
+  .chip{min-height:44px;display:inline-flex;align-items:center}
+
+  /* Kästchen zum Ankreuzen: 15 px sind mit dem Finger nicht zu treffen. */
+  .check{gap:13px;padding:4px 0}
+  .check input{width:24px;height:24px;margin-top:.05em}
+
+  /* „Löschen" über dem Unterschriftenfeld */
+  .sig__clear{min-height:44px;padding:.55em 1.1em}
+
+  /* Fläche zum Unterschreiben grosszügiger, sonst wird es eng */
+  .sig{min-height:190px}
+
+  /* Aufklappbares (Teilnahmebedingungen) */
+  summary{padding:12px 0}
+
+  /* Datei-Auswahl: Knopf und Dateiname dürfen untereinander rutschen,
+     lange Dateinamen sprengen sonst die Zeile. */
+  .filefield{flex-wrap:wrap;row-gap:8px}
+  .filefield__btn{min-height:44px;display:inline-flex;align-items:center}
+
+  /* Der graue Kasten, den mobile Browser beim Antippen aufblitzen lassen,
+     passt nicht zum Farbklang – ein Hauch Orange stattdessen. */
+  a,button,summary,label,input,select,textarea{
+    -webkit-tap-highlight-color:rgba(213,120,42,.18);
+  }
+}
+
+/* --------------------------------------------------- Schmale Geräte --- */
+@media (max-width:760px){
+
+  /* Auf dem Telefon eine Spur grösser als am Bildschirm – gesperrte
+     Grossbuchstaben in Kleinstgrösse liest unterwegs niemand. */
+  .eyebrow{font-size:.84rem}
+  .opt__tag{font-size:.8rem;letter-spacing:.1em}
+  .opt__price small{font-size:.78rem}
+
+  /* Ist das Menü länger als der Bildschirm, muss es scrollen können –
+     sonst sind die unteren Punkte nicht erreichbar. */
+  .top__mobile{
+    max-height:calc(100dvh - 66px);
+    overflow-y:auto;
+    overscroll-behavior:contain;
+  }
+
+  /* Zwei Kacheln nebeneinander statt einer sehr grossen. */
+  .posts{grid-template-columns:repeat(auto-fill,minmax(min(100%,140px),1fr))}
+
+  /* Lange Wörter (E-Mail-Adressen, Nutzungsbedingungen) dürfen umbrechen,
+     statt die Seite seitlich aufzuziehen. */
+  .doc__body,.callout,.notice,.formside__lead{overflow-wrap:break-word}
+
+  /* Randabstand um die Aussparung am unteren Bildschirmrand ergänzen. */
+  .foot{padding-bottom:env(safe-area-inset-bottom)}
+}
+
+/* Auf sehr schmalen Geräten wird der gesperrte Grossbuchstabensatz
+   sonst zum Flaschenhals. */
+@media (max-width:380px){
+  .top__brand{font-size:.72rem;letter-spacing:.14em}
+  .eyebrow{letter-spacing:.18em}
+  .posts{grid-template-columns:repeat(auto-fill,minmax(min(100%,130px),1fr))}
+  .formcard{padding:18px}
+
+  /* Die Auswahlkarten der Anmeldung stehen in einer Zeile: Kennbuchstabe,
+     Bezeichnung, Preis. Der Preis darf nicht umbrechen – dadurch liess
+     sich die Zeile nicht schmaler als 291 px machen und die Seite lief
+     seitlich über. Auf sehr schmalen Geräten rutscht der Preis deshalb
+     unter die Bezeichnung. */
+  /* Deutsche Komposita wie „Teilnahmebedingungen" oder „Unternehmensgrösse"
+     sind breiter als der Bildschirm. Mit lang="de" trennt der Browser sie
+     sauber; break-word ist der Notnagel, falls kein Wörterbuch da ist. */
+  legend,summary,label,.flabel,h1,h2,h3,.doc__body,.terms__body,.formcard{
+    hyphens:auto;
+    overflow-wrap:break-word;
+  }
+}
+
+/* Unter dieser Breite passt die Zeile „Kennbuchstabe – Bezeichnung – Preis"
+   nicht mehr nebeneinander. Der Preis rutscht dann darunter, statt die
+   Seite seitlich aufzuziehen. */
+@media (max-width:369px){
+  .opt__body{flex-wrap:wrap;row-gap:6px}
+  .opt__price,.opt__note{
+    flex:1 1 100%;
+    margin-left:0;text-align:left;
+    white-space:normal;
+  }
+  .opt__price small{display:inline;margin-left:.45em}
+}
+
+/* Querformat auf dem Telefon: wenig Höhe, deshalb weniger Luft. */
+@media (max-height:520px) and (orientation:landscape){
+  .hero{padding-top:clamp(28px,6vh,48px);padding-bottom:clamp(28px,6vh,48px)}
+  .top__mobile{max-height:calc(100dvh - 60px)}
 }
