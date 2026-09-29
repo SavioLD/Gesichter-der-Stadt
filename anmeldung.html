@@ -78,6 +78,8 @@
           <p>Ihre Teilnahme beginnt mit unserer Bestätigung per E-Mail und wird <strong>anteilig bis zum
             27. Juli</strong> abgerechnet – Sie zahlen nur für die Monate, die Sie dabei sind.</p>
           <p><strong>Vor der Bestätigung entstehen Ihnen keine Kosten.</strong></p>
+          <p>Abgerechnet wird <strong>per Rechnung</strong> – kein Lastschrifteinzug, keine Bankverbindung
+            nötig.</p>
         </div>
 
         <div class="callout">
@@ -244,69 +246,15 @@
                 Bestätigung.</p>
             </fieldset>
 
-            <!-- ---------------------------------------- Bankverbindung -->
+            <!-- ------------------------------------------- Abrechnung -->
             <fieldset class="fset">
-              <legend>Bankverbindung <span class="req">*</span></legend>
-
-              <div class="grid-2">
-                <div class="field">
-                  <label for="an_bank">Bankinstitut</label>
-                  <input class="input" id="an_bank" name="bankinstitut" />
-                </div>
-                <div class="field">
-                  <label for="an_holder">Kontoinhaber <span class="req">*</span></label>
-                  <input class="input" id="an_holder" name="kontoinhaber" />
-                  <p class="err-msg" data-for="an_holder">Bitte den Kontoinhaber angeben.</p>
-                </div>
-              </div>
-
-              <div class="grid-2 grid-2--iban">
-                <div class="field">
-                  <label for="an_iban">IBAN <span class="req">*</span></label>
-                  <input class="input" id="an_iban" name="iban" autocomplete="off" spellcheck="false"
-                         autocapitalize="characters" autocorrect="off"
-                         placeholder="DE00 0000 0000 0000 0000 00" />
-                  <p class="err-msg" data-for="an_iban">Bitte eine gültige IBAN angeben.</p>
-                </div>
-                <div class="field">
-                  <label for="an_bic">BIC <span class="req">*</span></label>
-                  <input class="input" id="an_bic" name="bic" autocomplete="off" spellcheck="false"
-                         autocapitalize="characters" autocorrect="off" />
-                  <p class="err-msg" data-for="an_bic">Bitte den BIC angeben.</p>
-                </div>
-              </div>
-            </fieldset>
-
-            <!-- ------------------------------------------ SEPA-Mandat -->
-            <fieldset class="fset">
-              <legend>SEPA-Lastschriftmandat <span class="req">*</span></legend>
-
-              <blockquote class="legal">
-                <p>Ich ermächtige Ländle Digital GmbH, Zahlungen aus diesem Vertragsverhältnis mittels
-                  SEPA-Lastschrift einzuziehen. Zugleich weise ich mein Kreditinstitut an, die von
-                  Ländle Digital GmbH auf mein Konto gezogenen Lastschriften einzulösen.</p>
-                <!-- Sobald vorhanden, diese Zeile einkommentieren und die Werte eintragen.
-                     Die Gläubiger-Identifikationsnummer vergibt die Bundesbank – sie ist etwas
-                     anderes als die Handelsregisternummer und muss beim Mandat stehen.
-                <p class="legal__ids">Gläubiger-Identifikationsnummer: DE00ZZZ00000000000<br />
-                  Mandatsreferenz: wird Ihnen mit der Bestätigung mitgeteilt.</p>
-                -->
-                <p class="legal__note">Hinweis: Ich kann innerhalb von acht Wochen, beginnend mit dem
-                  Belastungsdatum, die Erstattung des belasteten Betrags verlangen. Es gelten dabei die mit
-                  meinem Kreditinstitut vereinbarten Bedingungen.</p>
-              </blockquote>
-
-              <div class="field">
-                <span class="flabel" id="sigSepaLabel">Unterschrift <span class="req">*</span></span>
-                <div class="sig" data-sig="sepa">
-                  <canvas class="sig__pad" aria-labelledby="sigSepaLabel" role="img"
-                          aria-label="Unterschriftenfeld SEPA-Mandat"></canvas>
-                  <span class="sig__line" aria-hidden="true"></span>
-                  <span class="sig__hint">Mit Maus oder Finger unterschreiben</span>
-                  <button type="button" class="sig__clear">Löschen</button>
-                </div>
-                <p class="err-msg" data-for="sig-sepa">Bitte unterschreiben Sie das SEPA-Mandat.</p>
-              </div>
+              <legend>Abrechnung</legend>
+              <p class="fset__hint">Die Teilnahmegebühr wird <strong>per Rechnung</strong> abgerechnet.
+                Es gibt kein Lastschriftverfahren – wir buchen nichts von Ihrem Konto ab und brauchen
+                deshalb auch keine Bankverbindung von Ihnen.</p>
+              <p class="fset__hint">Die Rechnung geht an die oben angegebene E-Mail-Adresse, zahlbar
+                innerhalb von <strong>14 Tagen</strong> per Überweisung. Die erste Rechnung kommt nach
+                unserer Bestätigung.</p>
             </fieldset>
 
             <!-- ------------------------------------ Verbindliche Anmeldung -->
@@ -359,6 +307,13 @@
                   <p>Diese Bedingungen gelten für Anmeldungen über dieses Formular. Für <strong>früher
                     geschlossene Teilnahmen</strong> gelten weiterhin die damals vereinbarten Bedingungen,
                     solange nichts anderes ausdrücklich und einvernehmlich vereinbart wird.</p>
+
+                  <h4>8. Zahlung</h4>
+                  <p>Die Teilnahmegebühr wird <strong>per Rechnung</strong> abgerechnet. Es findet
+                    <strong>kein Lastschrifteinzug</strong> statt – wir buchen nichts von Ihrem Konto ab
+                    und erheben keine Bankverbindung.</p>
+                  <p>Die Rechnung geht an die angegebene E-Mail-Adresse und ist innerhalb von
+                    <strong>14 Tagen</strong> per Überweisung zu zahlen (§ 5 der Nutzungsbedingungen).</p>
                 </div>
               </details>
 
@@ -423,8 +378,8 @@
                 ob die Mindestteilnehmerzahl erreicht ist.</span>
             </div>
 
-            <p class="formnote">Ihre Bankdaten werden ausschließlich für den Einzug der Teilnahmegebühr
-              verwendet und nicht weitergegeben. Eingezogen wird erst nach unserer Bestätigung.</p>
+            <p class="formnote">Wir erheben keine Bankdaten. Die Abrechnung läuft ausschließlich per
+              Rechnung, die erste nach unserer Bestätigung.</p>
 
           </div>
         </form>

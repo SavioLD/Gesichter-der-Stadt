@@ -8,13 +8,13 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | Datei | Inhalt |
 |---|---|
 | `index.html` | Startseite: Projekt, Vorteile, Ziele, Betriebe, Anmeldung |
-| `anmeldung.html` | Verbindliche Anmeldung mit SEPA-Mandat und Unterschriften |
+| `anmeldung.html` | Verbindliche Anmeldung mit Unterschrift, Abrechnung per Rechnung |
 | `ergaenzung.html` | Ergänzung zur Teilnahme für Betriebe, die bereits dabei sind |
 | `betriebsprofil.html` | Logo, Branche und Angaben – von den Betrieben selbst |
 | `aktion-einreichen.html` | Formular für teilnehmende Betriebe |
 | `gesichter.css` | Gesamtes Styling beider Seiten |
 | `gesichter.js` | Navigation, Scroll-Reveal, Aktions-Formular |
-| `anmeldung.js` | Anmeldeformular: IBAN-Prüfung, Versand |
+| `anmeldung.js` | Anmeldeformular: Prüfung, Beitragsrechnung, Versand |
 | `ergaenzung.js` | Ergänzungsformular: Prüfung und Versand |
 | `betriebsprofil.js` | Betriebsprofil: Prüfung, Logo-Upload, Versand |
 | `signature.js` | Unterschriftenfeld, von beiden Formularen genutzt |
@@ -121,9 +121,20 @@ Schriften kommen von Google Fonts (Roboto Condensed, Inter).
 
 ## Anmeldung (`anmeldung.html`)
 
-Enthält Bankverbindung und zwei Unterschriften. Diese Daten gehen
-bewusst **nicht** per `mailto` raus – unverschlüsselte E-Mail ist für
-IBAN und Unterschrift der falsche Kanal.
+**Abgerechnet wird per Rechnung, nicht per Lastschrift.** Das Formular
+erhebt deshalb **keine Bankverbindung** und enthält nur eine
+Unterschrift – die unter der verbindlichen Anmeldung.
+
+Das ist eine bewusste Entscheidung und muss zusammenbleiben: Wer ein
+SEPA-Mandat unterschreibt, erwartet, dass eingezogen wird. Solange kein
+Einzug eingerichtet ist, darf auf der Seite auch kein Mandat stehen.
+Geregelt an drei Stellen, die gemeinsam zu pflegen sind:
+`anmeldung.html` (Abschnitt „Abrechnung" und Ziffer 8 der
+Teilnahmebedingungen), `nutzungsbedingungen.html` § 5 und
+`datenschutz.html` Abschnitt 5a.
+
+Die Unterschrift geht bewusst **nicht** per `mailto` raus –
+unverschlüsselte E-Mail ist dafür der falsche Kanal.
 
 Stattdessen sendet das Formular ein JSON per POST an die URL im
 Attribut `data-endpoint` des `<form>`:
@@ -163,8 +174,9 @@ bei etwa 2.000 ab.
 | `config.js` | der Access Key – die einzige Stelle zum Ändern |
 | `gds-submit.js` | baut die Anfrage und schickt sie ab |
 
-Vor dem Einsatz mit Bankdaten: Auftragsverarbeitungsvertrag und
-Serverstandort von Web3Forms prüfen.
+Auftragsverarbeitungsvertrag und Serverstandort von Web3Forms sind
+weiterhin zu prüfen – es gehen Unterschrift und Rechnungsanschrift
+darüber, auch ohne Bankdaten.
 
 Die Teilnahmebedingungen stehen aufklappbar direkt über der
 verbindlichen Unterschrift.
@@ -199,8 +211,8 @@ Anmeldungen über dieses Formular. Die 44 Betriebe, die vorher über
 Tally abgeschlossen haben, sind daran **nicht** gebunden – dafür
 bräuchte es eine Ergänzungsvereinbarung mit deren Zustimmung.
 
-Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, IBAN inklusive
-Prüfsumme nach ISO 7064, beide Unterschriften und die Zustimmung.
+Geprüft wird im Browser: Pflichtfelder, E-Mail-Format, die Unterschrift
+und die Zustimmung.
 
 ## Aktion einreichen (`aktion-einreichen.html`)
 
@@ -251,9 +263,11 @@ python3 -m http.server 8000
 
 ## Offene Punkte
 
-- **SEPA-Mandat**: Gläubiger-Identifikationsnummer und Mandatsreferenz
-  fehlen noch. In `anmeldung.html` ist der Block bereits vorbereitet und
-  auskommentiert – Werte eintragen und einkommentieren.
+- **Lastschrift**: derzeit bewusst nicht im Einsatz. Soll später doch
+  eingezogen werden, braucht es zuerst die Gläubiger-Identifikationsnummer
+  der Bundesbank und eine Lastschriftvereinbarung mit der Hausbank – und
+  dann wieder Bankfelder, Mandatstext und zweite Unterschrift im
+  Formular sowie angepasste § 5 und Abschnitt 5a.
 - **Handelsregisternummer**: gehört ins Impressum, sobald sie vorliegt.
 
 - **Teilnehmerzahl**: Den Text über dem Raster zieht `tools/galerie.js`

@@ -1,16 +1,18 @@
 /* ============================================================
    Gesichter der Stadt – Anmeldeformular
 
-   Enthält Bankverbindung und zwei Unterschriften. Versendet wird
-   über Web3Forms an die Adresse, die dort zum Access Key hinterlegt
-   ist (info@laendle-digital.com). Der Schlüssel steht in config.js.
+   Abgerechnet wird per Rechnung, nicht per Lastschrift. Das
+   Formular erhebt deshalb keine Bankverbindung und enthält nur
+   noch die eine Unterschrift unter der verbindlichen Anmeldung.
 
-   Per mailto ginge das nicht: allein die beiden Unterschriften
-   ergeben rund 25.000 Zeichen, viele Systeme brechen eine
-   mailto-Adresse aber schon bei etwa 2.000 ab.
+   Versendet wird über Web3Forms an die Adresse, die dort zum
+   Access Key hinterlegt ist (info@laendle-digital.com). Der
+   Schlüssel steht in config.js.
 
-   Die Unterschriften gehen als echte PNG-Dateien mit, nicht als
-   Textblock im E-Mail-Text.
+   Per mailto ginge das nicht: allein die Unterschrift ergibt rund
+   12.000 Zeichen, viele Systeme brechen eine mailto-Adresse aber
+   schon bei etwa 2.000 ab. Sie geht als echte PNG-Datei mit, nicht
+   als Textblock im E-Mail-Text.
 
    Solange kein Schlüssel hinterlegt ist, bleibt das Absenden
    gesperrt – die Daten verlassen den Browser nicht.
@@ -35,23 +37,6 @@
   /* ------------------------------------------------------ Prüfungen --- */
 
   var emailOk = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); };
-
-  /* IBAN: Länge, Zeichen und Prüfsumme nach ISO 7064 (Modulo 97) */
-  function ibanOk(raw) {
-    var v = raw.replace(/\s+/g, "").toUpperCase();
-    if (!/^[A-Z]{2}[0-9]{2}[A-Z0-9]{10,30}$/.test(v)) return false;
-    var re = v.slice(4) + v.slice(0, 4);
-    var digits = "";
-    for (var i = 0; i < re.length; i++) {
-      var c = re.charCodeAt(i);
-      digits += (c >= 65 && c <= 90) ? String(c - 55) : re[i];
-    }
-    var rest = 0;
-    for (var j = 0; j < digits.length; j += 7) {
-      rest = parseInt(String(rest) + digits.substr(j, 7), 10) % 97;
-    }
-    return rest === 1;
-  }
 
   function showErr(key, on) {
     var msg = $('.err-msg[data-for="' + key + '"]');
@@ -125,13 +110,6 @@
   });
   zeigeBeitrag();
 
-  /* IBAN beim Verlassen des Feldes in Vierergruppen setzen */
-  var ibanEl = $("#an_iban");
-  ibanEl.addEventListener("blur", function () {
-    var v = ibanEl.value.replace(/\s+/g, "").toUpperCase();
-    if (v) ibanEl.value = v.replace(/(.{4})/g, "$1 ").trim();
-  });
-
   /* --------------------------------------------------- Freischaltung --- */
 
   var notice = $("#anNotice");
@@ -160,12 +138,11 @@
     };
 
     [["an_company"], ["an_phone"], ["an_salutation"], ["an_first"], ["an_last"],
-     ["an_street"], ["an_zip"], ["an_city"], ["an_holder"], ["an_bic"]].forEach(function (f) {
+     ["an_street"], ["an_zip"], ["an_city"]].forEach(function (f) {
       if (!val(f[0])) fail(f[0]); else showErr(f[0], false);
     });
 
     if (!emailOk(val("an_email"))) fail("an_email"); else showErr("an_email", false);
-    if (!ibanOk(val("an_iban"))) fail("an_iban"); else showErr("an_iban", false);
 
     ["an_sizeGroup", "an_payGroup"].forEach(function (id) {
       var group = document.getElementById(id);
@@ -203,7 +180,6 @@
     }
 
     var checked = function (id) { var el = $("input:checked", document.getElementById(id)); return el ? el.value : ""; };
-    var strich = function (v) { return v || "—"; };
 
     var felder = {
       subject: "Anmeldung – " + val("an_company"),
@@ -216,10 +192,7 @@
       Adresse: val("an_street") + ", " + val("an_zip") + " " + val("an_city"),
       "Unternehmensgröße": checked("an_sizeGroup"),
       Zahlungsweise: checked("an_payGroup"),
-      Bankinstitut: strich(val("an_bank")),
-      Kontoinhaber: val("an_holder"),
-      IBAN: val("an_iban").replace(/\s+/g, ""),
-      BIC: val("an_bic").toUpperCase(),
+      Abrechnung: "per Rechnung",
       Datenschutz: "zugestimmt",
       Eingereicht: new Date().toLocaleString("de-DE")
     };
@@ -230,10 +203,9 @@
 
     var sicher = function (s) { return s.replace(/[^a-zA-Z0-9]+/g, "-").slice(0, 40); };
 
-    Promise.all([pads.sepa.toBlob(), pads.terms.toBlob()]).then(function (blobs) {
+    pads.terms.toBlob().then(function (blob) {
       return window.GdsSubmit.senden(felder, [
-        { feld: "Unterschrift SEPA-Mandat", dateiname: "unterschrift-sepa-" + sicher(val("an_company")) + ".png", blob: blobs[0] },
-        { feld: "Unterschrift Anmeldung", dateiname: "unterschrift-anmeldung-" + sicher(val("an_company")) + ".png", blob: blobs[1] }
+        { feld: "Unterschrift Anmeldung", dateiname: "unterschrift-anmeldung-" + sicher(val("an_company")) + ".png", blob: blob }
       ]);
     }).then(function () {
       $$("fieldset", form).forEach(function (f) { f.hidden = true; });
