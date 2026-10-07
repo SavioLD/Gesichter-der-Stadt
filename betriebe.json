@@ -12,12 +12,12 @@
   {
     "slug": "babor-institut-pinardi",
     "name": "BABOR Institut pinardi",
-    "kategorie": "Gesundheit & Beauty",
+    "kategorie": "Kosmetik Institut",
     "adresse": "Hauptstraße 57",
-    "beschreibung": "",
+    "beschreibung": "Wir sind das Kosmetik Institut pinardi und haben uns auf Problemhaut und Anti-Age spezialisiert. Wir bieten Gesichtsbehandlungen mit verschiedenen Behandlungsmethoden an, um die Haut nachhaltig zu verbessern. Außerdem zählen Hautberatung und Pflegekonzepte zu unseren Stärken.",
     "logo": "assets/logos/babor-institut-pinardi-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "institut_pinardi",
+    "website": "https://www.beauty-rottweil.de"
   },
   {
     "slug": "beach0741",
@@ -212,12 +212,12 @@
   {
     "slug": "kessler-gmbh",
     "name": "Kessler GmbH",
-    "kategorie": "Wohnen & Einrichten",
+    "kategorie": "Dein Profi für Telekommunikation",
     "adresse": "Hauptstraße 34",
-    "beschreibung": "",
+    "beschreibung": "Schnell und sicher mit der Welt vernetzt. Mit intelligenter Kommunikationstechnik, für jeden Lebensbereich. Dafür steht die KESSLER GmbH mit ihren Vodafone- und Telekom-Fachcentern in Rottweil, Albstadt und Balingen und dem Business-Center in Rottweil speziell für Geschäftskunden. Mit innovativen Telekommunikationslösungen von Vodafone und Telekom bündeln wir die maßgeblichen Kommunikationsmittel vom Festnetz über den Mobilfunk bis zum Internet. Ihr Mehrfachnutzen: Ersparnisse bis zu 25 % durch clevere Tarifoptimierung und ein Ansprechpartner direkt vor Ort. In über 25 Jahren haben wir uns auf einem heiß umkämpften Markt mit einer starken Position etabliert.",
     "logo": "assets/logos/kessler-gmbh-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "kesslergmbh",
+    "website": "https://www.kessler-verbindet.de/"
   },
   {
     "slug": "kreissparkasse-rottweil",
@@ -325,7 +325,7 @@
     "kategorie": "Handel & Mode",
     "adresse": "Hauptstraße 1",
     "beschreibung": "",
-    "logo": "assets/logos/schweizer-laedele-original.png",
+    "logo": "assets/logos/schweizer-laedele-original.pdf",
     "instagram": "",
     "website": ""
   },
@@ -341,13 +341,13 @@
   },
   {
     "slug": "stauss",
-    "name": "Stauss",
-    "kategorie": "Handel & Mode",
+    "name": "Juwelier Stauss",
+    "kategorie": "Juwelier",
     "adresse": "Hochbrücktorstraße 1",
-    "beschreibung": "",
+    "beschreibung": "Juwelier Stauss ist ein seit 1829 familiengeführtes Traditionsunternehmen, das inzwischen in siebter Generation geführt wird. Wir bieten Uhren, Schmuck sowie Eheringe und Verlobungsringe an, ergänzt durch Goldankauf, individuelle Anfertigungen und persönliche Beratung. Mit fast 200 Jahren Erfahrung verbinden wir Tradition mit Fachkompetenz für jeden besonderen Anlass.",
     "logo": "assets/logos/stauss-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "juwelierstauss",
+    "website": "https://juwelier-stauss.de/"
   },
   {
     "slug": "sw-holding-gmbh-rottweil",
@@ -401,13 +401,13 @@
   },
   {
     "slug": "volksbank-rottweil",
-    "name": "Volksbank Rottweil",
-    "kategorie": "Banken & Finanzen",
+    "name": "Volksbank Rottweil eG",
+    "kategorie": "Finanzdienstleistungen",
     "adresse": "Hochbrücktorstraße 27",
-    "beschreibung": "",
+    "beschreibung": "Als Genossenschaftsbank sind wir lokal verankert, überregional vernetzt, unseren Mitgliedern verpflichtet, demokratisch organisiert und an genossenschaftlichen Werten orientiert. Wir nutzen die Stärke unserer Genossenschaftlichen FinanzGruppe Volksbanken Raiffeisenbanken und setzen auf die Kenntnisse und Erfahrungen unserer Spezialistinnen und Spezialisten.",
     "logo": "assets/logos/volksbank-rottweil-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "volksbank_rottweil",
+    "website": "https://www.volksbank-rottweil.de/startseite.html"
   },
   {
     "slug": "vulpiani-pastabar",
@@ -424,7 +424,7 @@
     "name": "Wohn Schick GmbH + Co. KG",
     "kategorie": "Wir erfüllen Ihre Wohnträume",
     "adresse": "Im Kapellenösch 14",
-    "beschreibung": "",
+    "beschreibung": "Wir sind eines der größten Möbelhäuser in Baden-Württemberg und ein echtes schwäbisches Familienunternehmen. In unseren Häusern finden Sie eine große Auswahl an Möbeln, Küchen, Lampen, Teppichen und Boutique-Artikeln. Bei der Erfüllung Ihrer ganz individuellen Wohnträume stehen Ihnen unsere geschulten Einrichtungsexperten mit der besten Beratung zur Seite. All das bekommen Sie bei uns zu günstigen Preisen – für beste Qualität, versteht sich.",
     "logo": "assets/logos/wohn-schick-gmbh-co-kg-original.png",
     "instagram": "wohn_schick",
     "website": "https://www.wohn-schick.de/"

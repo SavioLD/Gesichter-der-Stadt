@@ -25,6 +25,19 @@ const MAX_H = 400;
 
 const b64 = (p) => fs.readFileSync(p).toString("base64");
 const typ = (p) => (/\.jpe?g$/i.test(p) ? "image/jpeg" : "image/png");
+const istPdf = (p) => /\.pdf$/i.test(p);
+
+/* Druckereien liefern Logos meist als PDF. Die Seite wird gerendert und
+   anschliessend auf den tatsächlich bedruckten Bereich beschnitten –
+   sonst sässe das Logo verloren in einer leeren A4-Fläche. */
+async function pdfRendern(datei) {
+  const mupdf = await import("mupdf");
+  const doc = mupdf.Document.openDocument(fs.readFileSync(datei), "application/pdf");
+  if (!doc.countPages()) throw new Error("PDF hat keine Seite");
+  const pix = doc.loadPage(0).toPixmap(
+    mupdf.Matrix.scale(3, 3), mupdf.ColorSpace.DeviceRGB, true, true);
+  return "data:image/png;base64," + Buffer.from(pix.asPNG()).toString("base64");
+}
 
 const schriften = [
   ["Roboto Condensed", 700, `${FONTS}/roboto-condensed/files/roboto-condensed-latin-700-normal.woff2`],
@@ -71,6 +84,44 @@ body{width:1080px;height:1080px;background:#fbf8f2;position:relative;overflow:hi
 <div class="band"><span id="fuss">${esc(adresse || "Rottweil")}</span></div>`;
 }
 
+/* Durchsichtigen Rand wegschneiden und die echten Masse zurückgeben. */
+async function beschneiden(seite, quelle) {
+  return seite.evaluate(
+    (src) =>
+      new Promise((ok, fehler) => {
+        const i = new Image();
+        i.onload = () => {
+          const c = document.createElement("canvas");
+          c.width = i.naturalWidth;
+          c.height = i.naturalHeight;
+          const ctx = c.getContext("2d");
+          ctx.drawImage(i, 0, 0);
+          const d = ctx.getImageData(0, 0, c.width, c.height).data;
+          let x0 = c.width, y0 = c.height, x1 = -1, y1 = -1;
+          for (let y = 0; y < c.height; y++) {
+            for (let x = 0; x < c.width; x++) {
+              if (d[(y * c.width + x) * 4 + 3] > 8) {
+                if (x < x0) x0 = x;
+                if (y < y0) y0 = y;
+                if (x > x1) x1 = x;
+                if (y > y1) y1 = y;
+              }
+            }
+          }
+          if (x1 < 0) return fehler(new Error("Seite ist leer"));
+          const b = x1 - x0 + 1, h = y1 - y0 + 1;
+          const k = document.createElement("canvas");
+          k.width = b;
+          k.height = h;
+          k.getContext("2d").drawImage(c, x0, y0, b, h, 0, 0, b, h);
+          ok({ quelle: k.toDataURL("image/png"), b: b, h: h });
+        };
+        i.onerror = () => fehler(new Error("Gerendertes PDF nicht lesbar"));
+        i.src = src;
+      }),
+    quelle);
+}
+
 async function masse(seite, quelle) {
   return seite.evaluate(
     (src) =>
@@ -115,10 +166,18 @@ function einpassen(b, h) {
     const datei = path.join(REPO, b.logo);
     if (!fs.existsSync(datei)) { console.error(`✗ ${b.slug}: ${b.logo} fehlt`); fehler++; continue; }
 
-    const quelle = `data:${typ(datei)};base64,${b64(datei)}`;
     const seite = await browser.newPage({ viewport: { width: 1080, height: 1080 }, deviceScaleFactor: 1 });
 
-    const roh = await masse(seite, quelle);
+    let quelle, roh;
+    if (istPdf(datei)) {
+      const zugeschnitten = await beschneiden(seite, await pdfRendern(datei));
+      quelle = zugeschnitten.quelle;
+      roh = { b: zugeschnitten.b, h: zugeschnitten.h };
+    } else {
+      quelle = `data:${typ(datei)};base64,${b64(datei)}`;
+      roh = await masse(seite, quelle);
+    }
+
     const { breite, hoehe, faktor } = einpassen(roh.b, roh.h);
 
     await seite.setContent(

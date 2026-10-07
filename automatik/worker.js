@@ -12,11 +12,14 @@
    Einrichtung siehe automatik/README.md
 ============================================================ */
 
+/* PDF gehört dazu: Druckereien liefern Logos meist so, und genau daran
+   ist die erste Einreichung gescheitert. kachel.js rendert es. */
 const ERLAUBT = {
   "image/png": ".png",
   "image/jpeg": ".jpg",
   "image/webp": ".webp",
   "image/svg+xml": ".svg",
+  "application/pdf": ".pdf",
 };
 
 const MAX_BYTES = 5 * 1024 * 1024;
