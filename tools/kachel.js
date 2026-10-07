@@ -54,7 +54,7 @@ const esc = (s) =>
   String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /* Vorlage nach dem Vorbild der bestehenden Beiträge */
-function vorlage({ logo, name, kategorie, adresse, breite, hoehe }) {
+function vorlage({ logo, name, kategorie, adresse, breite, hoehe, platte }) {
   return `<!doctype html><meta charset="utf-8"><style>
 ${schriftCss}
 *{margin:0;padding:0;box-sizing:border-box}
@@ -68,6 +68,9 @@ body{width:1080px;height:1080px;background:#fbf8f2;position:relative;overflow:hi
 .logo{position:absolute;left:50%;top:440px;transform:translate(-50%,-50%);
       width:${breite}px;height:${hoehe}px}
 .logo img{width:${breite}px;height:${hoehe}px;display:block}
+/* Bringt das Logo seine eigene Hintergrundfläche mit, wird daraus eine
+   bewusst gesetzte Platte statt eines harten Ausschnitts. */
+.logo--platte{border-radius:20px;overflow:hidden;box-shadow:0 2px 14px rgba(43,38,34,.10)}
 .name{position:absolute;left:0;right:0;top:718px;text-align:center;
       font-family:"Roboto Condensed",sans-serif;font-weight:700;font-size:56px;
       line-height:1.1;color:#2b2622;padding:0 90px}
@@ -79,7 +82,7 @@ body{width:1080px;height:1080px;background:#fbf8f2;position:relative;overflow:hi
 </style>
 <div class="eyebrow left" id="links">Gesichter unserer Stadt</div>
 <div class="eyebrow right" id="rechts">${esc(kategorie)}</div>
-<div class="logo"><img id="marke" src="${logo}"></div>
+<div class="logo${platte ? " logo--platte" : ""}"><img id="marke" src="${logo}"></div>
 <div class="name">${esc(name)}</div>
 <div class="band"><span id="fuss">${esc(adresse || "Rottweil")}</span></div>`;
 }
@@ -127,7 +130,34 @@ async function masse(seite, quelle) {
     (src) =>
       new Promise((ok, fehler) => {
         const i = new Image();
-        i.onload = () => ok({ b: i.naturalWidth, h: i.naturalHeight });
+        i.onload = () => {
+          const c = document.createElement("canvas");
+          c.width = i.naturalWidth;
+          c.height = i.naturalHeight;
+          const ctx = c.getContext("2d");
+          ctx.drawImage(i, 0, 0);
+          const d = ctx.getImageData(0, 0, c.width, c.height).data;
+          const bei = (x, y) => {
+            const k = (y * c.width + x) * 4;
+            return [d[k], d[k + 1], d[k + 2], d[k + 3]];
+          };
+          /* Rand abtasten: deckend und nicht im Creme-Ton heisst, das Logo
+             bringt eine eigene Fläche mit. */
+          const proben = [];
+          for (let x = 0; x < c.width; x += Math.max(1, (c.width / 60) | 0)) {
+            proben.push(bei(x, 0), bei(x, c.height - 1));
+          }
+          for (let y = 0; y < c.height; y += Math.max(1, (c.height / 60) | 0)) {
+            proben.push(bei(0, y), bei(c.width - 1, y));
+          }
+          const deckend = proben.filter((p) => p[3] > 200);
+          const creme = (p) =>
+            Math.abs(p[0] - 251) < 14 && Math.abs(p[1] - 248) < 14 && Math.abs(p[2] - 242) < 14;
+          const platte =
+            deckend.length > proben.length * 0.9 &&
+            deckend.filter(creme).length < deckend.length * 0.5;
+          ok({ b: i.naturalWidth, h: i.naturalHeight, platte: platte });
+        };
         i.onerror = () => fehler(new Error("Logo nicht lesbar"));
         i.src = src;
       }),
@@ -181,7 +211,8 @@ function einpassen(b, h) {
     const { breite, hoehe, faktor } = einpassen(roh.b, roh.h);
 
     await seite.setContent(
-      vorlage({ logo: quelle, name: b.name, kategorie: b.kategorie, adresse: b.adresse, breite, hoehe }),
+      vorlage({ logo: quelle, name: b.name, kategorie: b.kategorie, adresse: b.adresse,
+                breite, hoehe, platte: !!roh.platte }),
       { waitUntil: "load" });
     await seite.evaluate(() => document.fonts.ready);
     await seite.waitForTimeout(300);

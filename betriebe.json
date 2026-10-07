@@ -142,12 +142,12 @@
   {
     "slug": "galerie-dyma-einrahmungsfachgeschaeft",
     "name": "Galerie Dyma Einrahmungsfachgeschäft",
-    "kategorie": "Wohnen & Einrichten",
+    "kategorie": "Stilvolle Rahmungen & Kunsthandwerk",
     "adresse": "Hauptstraße 12",
-    "beschreibung": "",
+    "beschreibung": "Seit über 30 Jahren vereint unser Familienunternehmen im Herzen von Rottweil präzises Handwerk mit künstlerischem Gespür für Ihre perfekten Einrahmungen. In unserer eigenen Kunstwerkstatt fertigen wir maßgeschneiderte Rahmen, die Ihren Bildern den idealen Raum, Schutz und eine ganz besondere Wertigkeit verleihen. Entdecken Sie erlesene Kunstwerke, gepaart mit unserer leidenschaftlichen, persönlichen Beratung – wir freuen uns auf Ihren Besuch!",
     "logo": "assets/logos/galerie-dyma-einrahmungsfachgeschaeft-original.png",
     "instagram": "",
-    "website": ""
+    "website": "https://galerie-dyma.de/"
   },
   {
     "slug": "gent-e-k",
@@ -264,10 +264,10 @@
     "name": "MT-Prints",
     "kategorie": "3D-Druck, Geschenke & Souvenirs",
     "adresse": "Obere Fußgängerzone – Hauptstraße 12",
-    "beschreibung": "",
+    "beschreibung": "Bei MT-Prints findet ihr Geschenkartikel, Souvenirs und besondere 3D-Drucke – vieles davon auch personalisierbar. Dazu gibt's 3D-Druck-Zubehör, individuelle Anfertigungen und Kurse.",
     "logo": "assets/logos/mt-prints-original.jpeg",
-    "instagram": "",
-    "website": ""
+    "instagram": "mt_prints_",
+    "website": "https://mt-prints.com"
   },
   {
     "slug": "my-engele",
@@ -351,7 +351,7 @@
   },
   {
     "slug": "sw-holding-gmbh-rottweil",
-    "name": "SW Holding GmbH (Rottweil)",
+    "name": "Rottweiler Shop",
     "kategorie": "Handel",
     "adresse": "Auf dem Wall 29",
     "beschreibung": "",

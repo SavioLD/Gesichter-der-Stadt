@@ -110,6 +110,19 @@ von `kachel.js --alle`: Er warnt bei jedem Logo unter 420 px Breite.
 Die Adressen sind recherchiert, nicht von den Betrieben bestätigt.
 Kommt über das Betriebsprofil eine eigene Angabe herein, gewinnt die.
 
+### Details auf der Kachel
+
+Jede Kachel im Raster lässt sich antippen und öffnet einen Dialog mit
+Adresse, Beschreibung, Instagram und Website. Die Angaben stehen als
+verborgener Block `.post__daten` direkt neben der Kachel im Markup –
+nicht per `fetch` –, damit sie auch ohne JavaScript im Quelltext stehen
+und von Suchmaschinen gefunden werden. `gesichter.js` kopiert beim
+Öffnen nur die Teile in den Dialog, die die Grafik nicht ohnehin zeigt:
+Name, Kategorie und Adresse stehen schon auf dem Bild.
+
+Betriebe ohne eingereichtes Profil öffnen ebenfalls – dort steht dann
+der Hinweis, dass das Profil noch fehlt.
+
 ## Design
 
 Farben und Typografie folgen den Social-Media-Posts des Projekts:

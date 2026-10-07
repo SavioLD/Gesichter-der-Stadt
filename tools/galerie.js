@@ -29,27 +29,58 @@ if (!html.includes(START) || !html.includes(ENDE)) {
   process.exit(1);
 }
 
+/* Jede Kachel ist ein Knopf, der die Details aufklappt. Die Details
+   stehen als verborgener Block daneben im Markup – nicht per fetch –
+   damit sie auch ohne JavaScript im Quelltext stehen und von
+   Suchmaschinen gefunden werden. */
 const kacheln = betriebe.map((b) => {
-  const bild =
-    `<img src="posts/${b.slug}.png" alt="Gesichter unserer Stadt: ${esc(b.name)}" ` +
-    `loading="lazy" width="1080" height="1080" />`;
-  const titel = `<figcaption>${esc(b.name)}</figcaption>`;
+  const zeilen = [];
+  if (b.kategorie) zeilen.push(`<p class="bd__kat">${esc(b.kategorie)}</p>`);
+  if (b.adresse) {
+    zeilen.push(
+      `<p class="bd__adr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" ` +
+      `stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">` +
+      `<path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>` +
+      `</svg>${esc(b.adresse)}, Rottweil</p>`);
+  }
+  if (b.beschreibung) zeilen.push(`<p class="bd__txt">${esc(b.beschreibung)}</p>`);
 
-  /* Mit Instagram-Handle wird die Kachel anklickbar, ohne bleibt sie ruhig. */
+  const verweise = [];
   if (b.instagram) {
     const nutzer = b.instagram.replace(/^@/, "");
-    return [
-      `        <figure class="post post--link rv">`,
-      `          <a class="post__link" href="https://www.instagram.com/${esc(nutzer)}/"`,
-      `             target="_blank" rel="noopener" aria-label="${esc(b.name)} auf Instagram">${bild}</a>`,
-      `          ${titel}`,
-      `        </figure>`,
-    ].join("\n");
+    verweise.push(
+      `<a class="bd__link" href="https://www.instagram.com/${esc(nutzer)}/" target="_blank" ` +
+      `rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ` +
+      `aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5.5"/>` +
+      `<circle cx="12" cy="12" r="4.2"/><circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" ` +
+      `stroke="none"/></svg>@${esc(nutzer)}</a>`);
   }
+  if (b.website) {
+    const sichtbar = b.website.replace(/^https?:\/\//, "").replace(/\/$/, "");
+    verweise.push(
+      `<a class="bd__link" href="${esc(b.website)}" target="_blank" rel="noopener">` +
+      `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ` +
+      `aria-hidden="true"><circle cx="12" cy="12" r="9.3"/><path d="M3 12h18M12 2.7c5 5.4 5 13.2 0 18.6` +
+      `M12 2.7c-5 5.4-5 13.2 0 18.6"/></svg>${esc(sichtbar)}</a>`);
+  }
+  if (verweise.length) zeilen.push(`<p class="bd__links">${verweise.join("")}</p>`);
+  if (!b.beschreibung) {
+    zeilen.push(`<p class="bd__offen">Dieser Betrieb hat sein Profil noch nicht hinterlegt.</p>`);
+  }
+
   return [
-    `        <figure class="post rv">`,
-    `          ${bild}`,
-    `          ${titel}`,
+    `        <figure class="post post--auf rv">`,
+    `          <button class="post__auf" type="button" aria-haspopup="dialog">`,
+    `            <img src="posts/${b.slug}.png" alt="Gesichter unserer Stadt: ${esc(b.name)}"`,
+    `                 loading="lazy" width="1080" height="1080" />`,
+    `            <span class="post__lupe" aria-hidden="true">+</span>`,
+    `            <span class="vh">${esc(b.name)} – Details anzeigen</span>`,
+    `          </button>`,
+    `          <figcaption>${esc(b.name)}</figcaption>`,
+    `          <div class="post__daten" hidden>`,
+    `            <h3>${esc(b.name)}</h3>`,
+    `            ${zeilen.join("\n            ")}`,
+    `          </div>`,
     `        </figure>`,
   ].join("\n");
 }).join("\n");
@@ -70,7 +101,7 @@ if (html === vorher) {
 } else {
   fs.writeFileSync(SEITE, html);
   console.log(`index.html aktualisiert: ${anzahl} Kacheln, ` +
-              `${betriebe.filter((b) => b.instagram).length} davon mit Instagram-Verlinkung.`);
+              `${betriebe.filter((b) => b.beschreibung).length} davon mit eigenem Profil.`);
 }
 
 const ohneLogo = betriebe.filter((b) => !b.logo);

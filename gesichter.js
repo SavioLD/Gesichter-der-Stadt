@@ -193,3 +193,74 @@
     });
   });
 })();
+
+/* ============================================================
+   Betriebsdialog
+
+   Jede Kachel trägt ihre Angaben als verborgenen Block neben sich.
+   Beim Antippen wandern Bild und Text in den Dialog. Die Daten
+   stehen damit auch ohne JavaScript im Quelltext.
+============================================================ */
+(function () {
+  "use strict";
+
+  var dlg = document.getElementById("bizDlg");
+  if (!dlg) return;
+
+  var bild = document.getElementById("bizDlgBild");
+  var text = document.getElementById("bizDlgText");
+  var name = document.getElementById("bizDlgTitel");
+  var zuletzt = null;
+
+  function oeffnen(figur) {
+    var daten = figur.querySelector(".post__daten");
+    var quelle = figur.querySelector("img");
+    if (!daten || !quelle) return;
+
+    var titel = daten.querySelector("h3");
+    name.textContent = titel ? titel.textContent : "";
+
+    /* Name, Kategorie und Adresse stehen schon in der Grafik. Hier kommt
+       nur dazu, was dort keinen Platz hat. */
+    text.innerHTML = "";
+    daten.querySelectorAll(".bd__adr, .bd__txt, .bd__links, .bd__offen")
+      .forEach(function (el) { text.appendChild(el.cloneNode(true)); });
+
+    bild.src = quelle.getAttribute("src");
+    bild.alt = quelle.getAttribute("alt") || "";
+    bild.width = quelle.getAttribute("width") || 1080;
+    bild.height = quelle.getAttribute("height") || 1080;
+
+    zuletzt = figur.querySelector(".post__auf");
+    if (typeof dlg.showModal === "function") dlg.showModal();
+    else dlg.setAttribute("open", "");
+    dlg.scrollTop = 0;
+  }
+
+  function schliessen() {
+    if (typeof dlg.close === "function") dlg.close();
+    else dlg.removeAttribute("open");
+  }
+
+  document.addEventListener("click", function (ev) {
+    var knopf = ev.target.closest && ev.target.closest(".post__auf");
+    if (knopf) {
+      ev.preventDefault();
+      oeffnen(knopf.closest(".post"));
+    }
+  });
+
+  var zu = dlg.querySelector(".bizdlg__zu");
+  if (zu) zu.addEventListener("click", schliessen);
+
+  /* Klick auf die Fläche daneben schliesst ebenfalls. */
+  dlg.addEventListener("click", function (ev) {
+    if (ev.target === dlg) schliessen();
+  });
+
+  /* Fokus zurück auf die Kachel, von der aus geöffnet wurde. */
+  dlg.addEventListener("close", function () {
+    if (zuletzt && zuletzt.focus) zuletzt.focus();
+    zuletzt = null;
+  });
+})();
