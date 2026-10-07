@@ -32,31 +32,31 @@
   {
     "slug": "bernhard-merz-immobilien-gmbh",
     "name": "Bernhard Merz Immobilien GmbH",
-    "kategorie": "Immobilien & Bau",
+    "kategorie": "Immobilien & Finanzen",
     "adresse": "Marxstraße 6",
-    "beschreibung": "",
+    "beschreibung": "Immobilienkompetenz mit Erfahrung, Weitblick und starken Wurzeln in der Region. Als Bauträger entwickeln und realisieren wir modernen Wohnraum – vom klassischen Neubau bis hin zu durchdachten, altersgerechten Wohnkonzepten. Gleichzeitig begleiten wir Eigentümer mit fundierten Immobilienbewertungen, echter Marktkenntnis und persönlicher Beratung beim Verkauf oder der Vermietung ihrer Immobilie. Von der Projektentwicklung bis zur Bestandsimmobilie: Bei uns kommt Immobilienkompetenz aus einer Hand.",
     "logo": "assets/logos/bernhard-merz-immobilien-gmbh-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "merzimmobilien_rottweil",
+    "website": "https://merz-immobilien.de"
   },
   {
     "slug": "betten-hugger",
     "name": "Betten Hugger",
-    "kategorie": "Wohnen & Einrichten",
-    "adresse": "Hochbrücktorstraße 19",
-    "beschreibung": "",
+    "kategorie": "Alles rund um den Schlaf",
+    "adresse": "Hochbrücktorstr. 19",
+    "beschreibung": "Bei uns finden Sie alles, was Sie zum Schlafen und Erholen brauchen – Betten, Matratzen, Zudecken, Kopfkissen, Einlegerahmen, Nackenstützkissen, Bettwäsche und vieles weitere mehr. Dabei steht die Beratung für uns im Mittelpunkt. Es gibt kein immer passendes Universal-Bett: Je nach Körperbau, Geschmack, Wohnverhältnissen, Schlafklima und eigenem sensitivem Empfinden muss das optimale Bett für jeden individuell gefunden und zusammengestellt werden. Unsere Vision: „Wir finden für Sie das perfekte Bett!“",
     "logo": "assets/logos/betten-hugger-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "bettenhugger",
+    "website": "https://www.betten-hugger.de"
   },
   {
     "slug": "borrelli-sapori-italiani",
     "name": "Borrelli Sapori Italiani",
-    "kategorie": "Gastronomie & Genuss",
+    "kategorie": "Italienische Feinkost",
     "adresse": "Hohlengrabengasse 14",
-    "beschreibung": "",
+    "beschreibung": "Wir bieten italienische Lebensmittel und Feinkost sowie italienische Getränke, leckere Paninis und Antipasti.",
     "logo": "assets/logos/borrelli-sapori-italiani-original.png",
-    "instagram": "",
+    "instagram": "borrelli_sapori_italiani",
     "website": ""
   },
   {
@@ -172,22 +172,22 @@
   {
     "slug": "goekhan-boztepe-beyhan-kiasif-gbr",
     "name": "Gökhan Boztepe & Beyhan Kiasif GbR",
-    "kategorie": "Gastronomie & Genuss",
-    "adresse": "Hauptstraße 38",
-    "beschreibung": "",
+    "kategorie": "Snack Tempel – Gönn Dir!",
+    "adresse": "Im Herzen Rottweils – Hauptstraße 38",
+    "beschreibung": "Snack Tempel ist dein moderner 24/7 Shop und Automatenkiosk in Rottweil. Entdecke Snacks, Getränke, Süßes, Vapes, Raucherbedarf oder Hygieneartikel – zentral, unkompliziert und rund um die Uhr für dich da!",
     "logo": "assets/logos/goekhan-boztepe-beyhan-kiasif-gbr-original.png",
-    "instagram": "",
+    "instagram": "snacktempel",
     "website": ""
   },
   {
     "slug": "haarstudio-ambiente",
     "name": "Haarstudio Ambiente",
-    "kategorie": "Gesundheit & Beauty",
+    "kategorie": "Friseur in Rottweil, ehrliche Beratung",
     "adresse": "Hohlengrabengasse 20",
-    "beschreibung": "",
+    "beschreibung": "Wir bieten alle Friseur-Dienstleistungen und haben uns auf Blond, Strähnen und Balayage spezialisiert.",
     "logo": "assets/logos/haarstudio-ambiente-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "haarstudioambiente",
+    "website": "https://haarstudio-ambiente.de/"
   },
   {
     "slug": "hans-joerg-dierstein",
@@ -292,12 +292,12 @@
   {
     "slug": "ralf-graner-photodesign",
     "name": "Ralf Graner Photodesign",
-    "kategorie": "Foto, Druck & Medien",
-    "adresse": "Hauptstraße 55",
-    "beschreibung": "",
+    "kategorie": "Foto- und Videografie",
+    "adresse": "Untere Hauptstraße – Hauptstr. 55",
+    "beschreibung": "Ihr seid auf der Suche nach professionellen Fotos und Videos, die eure Geschichte, Marke oder besonderen Momente authentisch und wirkungsvoll in Szene setzen? Mit kreativen Ideen, einem Auge fürs Detail und viel Leidenschaft setzen wir eure Vorstellungen visuell um. Dabei entstehen authentische Bilder und Filme, die nicht nur gut aussehen, sondern im Kopf bleiben.",
     "logo": "assets/logos/ralf-graner-photodesign-original.png",
-    "instagram": "",
-    "website": ""
+    "instagram": "ralfgraner_photodesign",
+    "website": "https://www.ralfgraner.de"
   },
   {
     "slug": "ristorante-italia",
