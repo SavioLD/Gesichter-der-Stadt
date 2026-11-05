@@ -15,7 +15,7 @@ MODUS = "pr"
 
 # Von welcher Seite Einreichungen angenommen werden.
 # "*" nimmt von überall an – für den Testlauf in Ordnung, danach eintragen.
-HERKUNFT = "https://saviold.github.io"
+HERKUNFT = "https://gesichterderstadt-rottweil.de"
 
 # Das GitHub-Token wird NICHT hier eingetragen, sondern als Secret:
 #   npx wrangler secret put GITHUB_TOKEN
