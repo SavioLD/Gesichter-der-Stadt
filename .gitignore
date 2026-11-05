@@ -1,1 +1,4 @@
 tools/node_modules/
+
+# Prüfansichten aus tools/reel.js --pruef sind Arbeitsstände
+reels/*-pruef.png

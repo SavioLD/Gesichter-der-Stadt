@@ -145,6 +145,7 @@ node tools/reel.js "Hinter den Kulissen" --betrieb "Borrelli" --bild standbild.j
 | `--stil` | `creme`, `orange` oder `bild`. Ohne Angabe `creme`, mit `--bild` automatisch `bild` |
 | `--bild` | Standbild aus dem Reel als Hintergrund, mit Schleier darüber |
 | `--datei` | Dateiname. Ohne Angabe aus dem Titel abgeleitet |
+| `--pruef` | Blendet den Feed-Zuschnitt und die Bedienleisten ein – zum Nachsehen, nicht zum Hochladen |
 
 Drei Stile, mehr nicht – einheitlich wird es dadurch, dass es wenige
 sind. `creme` und `orange` im Wechsel halten das Raster lebendig, `bild`
@@ -155,19 +156,39 @@ fertige Post-Kachel.** Eine Kachel bringt ihren eigenen Text mit, der
 durch den Schleier durchschlägt und sich mit dem Titel beisst. Ist das
 Standbild sehr hell, darf der Schleier in `.schleier` kräftiger werden.
 
-### Warum der Text in der Mitte steht
+### 9:16 hochladen, für 4:5 gestalten
 
-Instagram legt über das Reel oben rund 250 px mit Name und Ton-Symbol
-und unten rund 350 px mit Bildtext und Knöpfen. Im Profilraster bleibt
-umgekehrt nur die Mitte stehen – der Rest wird beschnitten. Was oben
-oder unten sitzt, ist also entweder verdeckt oder weg. Deshalb sitzt
-der ganze Satz mittig um y = 960; dort überlebt er beide Zuschnitte.
-Der Bogen unten ist bewusst nur Schmuck: dass er im Raster wegfällt,
-kostet keine Information.
+Die Datei ist 1080 × 1920, also 9:16 wie das Reel selbst. Zu sehen
+bekommt man das aber fast nie ganz:
 
-Der Titel wird automatisch kleiner gesetzt, wenn er sonst aus der
-Schutzzone läuft – von 128 px in Schritten bis herunter auf 68 px. Wird
-es dort eng, sagt das Werkzeug es beim Lauf. Ein Wort, das selbst dann
+| Ansicht | Was übrig bleibt |
+|---|---|
+| Vollbild 9:16 | alles – oben rund 250 px und unten rund 350 px liegen unter Instagrams Bedienleisten |
+| Feed | nur die Mitte, 1080 × 1350 (4:5), also y 285 bis 1635 |
+| Profilraster | derselbe mittige Ausschnitt |
+
+Gemeinsamer Nenner ist der **Feed-Rahmen**: 1080 × 1350 aus der Mitte.
+Der ganze Entwurf steckt darin – Punkteraster oben, Text darunter,
+Bogen als Fuss. Was ausserhalb liegt, ist nur Grundfarbe, und das
+liegt genau dort, wo Instagram ohnehin seine Bedienleisten hinlegt.
+Deshalb lässt sich das Bild als 9:16 hochladen, ohne dass im Feed ein
+angeschnittener Entwurf ankommt.
+
+Der Satz hängt am Bogen, statt mittig zu stehen. Das war eine
+Korrektur: mittig gesetzt sass er im Feed-Zuschnitt zu hoch, und
+darunter blieb eine leere Fläche. Am Bogen verankert sitzt die
+Überschrift auf jedem Vorschaubild auf derselben Höhe, egal wie lang
+der Titel ist – im Profilraster liegen sie dadurch auf einer Linie
+und die Reihe liest sich als Reihe.
+
+Die Zahlen stehen als Konstanten am Kopf von `tools/reel.js`
+(`FEED_OBEN`, `BOGEN_OBEN`, `SATZ_FUSS`). Wer daran dreht, prüft das
+Ergebnis mit `--pruef`: das legt den Feed-Rahmen und die
+Bedienleisten sichtbar über das Bild.
+
+Der Titel wird automatisch kleiner gesetzt, wenn er sonst aus dem
+Rahmen läuft – von 128 px in Schritten bis herunter auf 68 px. Wird es
+dort eng, sagt das Werkzeug es beim Lauf. Ein Wort, das selbst dann
 nicht in eine Zeile passt, wird umgebrochen statt abgeschnitten, und
 auch das wird gemeldet. Kurze Titel wirken auf dem Telefon ohnehin
 besser; `|` an der richtigen Stelle ist meist die bessere Lösung als
