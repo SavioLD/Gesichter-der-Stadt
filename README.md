@@ -23,7 +23,8 @@ Statische Seite ohne Build-Schritt – einfach ausliefern.
 | `betriebe.json` | Alle teilnehmenden Betriebe: Name, Kategorietext, Logo, Instagram |
 | `posts/` | Post-Grafiken der teilnehmenden Betriebe (1080×1080) |
 | `assets/logos/` | Die Originaldateien, aus denen die Grafiken gebaut werden |
-| `tools/` | Generatoren für Grafiken und Galerie |
+| `reels/` | Vorschaubilder für Reels (1080×1920) |
+| `tools/` | Generatoren für Grafiken, Galerie und Reel-Vorschaubilder |
 | `logo.svg` | Favicon |
 | `.nojekyll` | verhindert Jekyll-Verarbeitung auf GitHub Pages |
 
@@ -122,6 +123,59 @@ Name, Kategorie und Adresse stehen schon auf dem Bild.
 
 Betriebe ohne eingereichtes Profil öffnen ebenfalls – dort steht dann
 der Hinweis, dass das Profil noch fehlt.
+
+## Vorschaubild für ein Reel
+
+Reels brauchen ein Titelbild, sonst zieht Instagram ein beliebiges
+Einzelbild aus dem Video – im Profilraster sieht das nach Zufall aus.
+`tools/reel.js` baut es in der Handschrift des Projekts: gleiche Farben,
+gleiche Schrift, gleicher Bogen wie die Kacheln, aber hochkant und mit
+Platz für eine Zeile darüber, worum es geht.
+
+```bash
+node tools/reel.js "Seit 1829 in|Familienhand" --betrieb "Juwelier Stauss"
+node tools/reel.js "Drei Geheimtipps|aus der Altstadt" --stil orange
+node tools/reel.js "Hinter den Kulissen" --betrieb "Borrelli" --bild standbild.jpg
+```
+
+| Angabe | Wirkung |
+|---|---|
+| *(erstes Argument)* | Der Titel. Ein `\|` erzwingt einen Zeilenumbruch |
+| `--betrieb` | Name unten unter dem Strich. Weglassen, wenn es um kein einzelnes Geschäft geht |
+| `--stil` | `creme`, `orange` oder `bild`. Ohne Angabe `creme`, mit `--bild` automatisch `bild` |
+| `--bild` | Standbild aus dem Reel als Hintergrund, mit Schleier darüber |
+| `--datei` | Dateiname. Ohne Angabe aus dem Titel abgeleitet |
+
+Drei Stile, mehr nicht – einheitlich wird es dadurch, dass es wenige
+sind. `creme` und `orange` im Wechsel halten das Raster lebendig, `bild`
+ist für Reels gedacht, bei denen man sehen soll, was einen erwartet.
+
+**Beim `--bild` gehört ein Standbild aus dem Video hinein, keine
+fertige Post-Kachel.** Eine Kachel bringt ihren eigenen Text mit, der
+durch den Schleier durchschlägt und sich mit dem Titel beisst. Ist das
+Standbild sehr hell, darf der Schleier in `.schleier` kräftiger werden.
+
+### Warum der Text in der Mitte steht
+
+Instagram legt über das Reel oben rund 250 px mit Name und Ton-Symbol
+und unten rund 350 px mit Bildtext und Knöpfen. Im Profilraster bleibt
+umgekehrt nur die Mitte stehen – der Rest wird beschnitten. Was oben
+oder unten sitzt, ist also entweder verdeckt oder weg. Deshalb sitzt
+der ganze Satz mittig um y = 960; dort überlebt er beide Zuschnitte.
+Der Bogen unten ist bewusst nur Schmuck: dass er im Raster wegfällt,
+kostet keine Information.
+
+Der Titel wird automatisch kleiner gesetzt, wenn er sonst aus der
+Schutzzone läuft – von 128 px in Schritten bis herunter auf 68 px. Wird
+es dort eng, sagt das Werkzeug es beim Lauf. Ein Wort, das selbst dann
+nicht in eine Zeile passt, wird umgebrochen statt abgeschnitten, und
+auch das wird gemeldet. Kurze Titel wirken auf dem Telefon ohnehin
+besser; `|` an der richtigen Stelle ist meist die bessere Lösung als
+ein kleinerer Grad.
+
+Die Dateien unter `reels/` sind die bisher gebauten Vorschaubilder –
+die Website liefert sie nicht aus, sie werden beim Hochladen des Reels
+in Instagram als Titelbild ausgewählt.
 
 ## Design
 

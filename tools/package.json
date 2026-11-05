@@ -1,10 +1,11 @@
 {
   "name": "gesichter-der-stadt-tools",
   "private": true,
-  "description": "Werkzeuge zum Erzeugen der Post-Grafiken und der Betriebsgalerie",
+  "description": "Werkzeuge zum Erzeugen der Post-Grafiken, der Betriebsgalerie und der Reel-Vorschaubilder",
   "scripts": {
     "kachel": "node kachel.js",
-    "galerie": "node galerie.js"
+    "galerie": "node galerie.js",
+    "reel": "node reel.js"
   },
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
